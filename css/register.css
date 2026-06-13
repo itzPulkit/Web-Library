@@ -1,0 +1,149 @@
+.register-body {
+    min-height: 100vh;
+    margin: 0;
+    background: linear-gradient(180deg, #ffb474 0%, #ffd3a1 40%, #ffe9cf 70%, #ffffff 100%);
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', sans-serif;
+    color: #111827;
+    position: relative;
+}
+
+.top-left-logo {
+    position: absolute;
+    left: 18px;
+    top: 18px;
+    display: inline-block;
+    z-index: 60;
+    border-radius: 8px;
+    overflow: hidden;
+    background: rgba(255,255,255,0.6);
+    padding: 6px;
+    box-shadow: 0 8px 20px rgba(15,23,42,0.12);
+}
+
+.top-left-logo img {
+    display: block;
+    height: 36px;
+    width: auto;
+}
+
+.register-container {
+    min-height: calc(100vh - 60px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+}
+
+.register-box {
+    background: white;
+    padding: 2.5rem;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 500px;
+}
+
+.register-box h2 {
+    color: #333;
+    text-align: center;
+    margin-bottom: 2rem;
+    font-size: 2rem;
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-row .form-group {
+    margin-bottom: 0;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: #555;
+    font-weight: 500;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #e1e5ea;
+    border-radius: 8px;
+    font-size: 1rem;
+}
+
+.form-group input:focus {
+    border-color: #667eea;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.password-requirements {
+    margin-top: 0.5rem;
+    font-size: 0.85rem;
+    color: #666;
+}
+
+.terms-checkbox {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    margin-bottom: 1.5rem;
+}
+
+.terms-checkbox input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    margin-top: 3px;
+    accent-color: #667eea;
+}
+
+.terms-checkbox label {
+    font-size: 0.9rem;
+    color: #555;
+    line-height: 1.4;
+}
+
+.terms-checkbox a {
+    color: #667eea;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.register-button {
+    width: 100%;
+    padding: 12px;
+    background: linear-gradient(145deg, #ff7b39 0%, #ffb347 50%, #ffd27f 100%);
+    color: white;
+    border: none;
+    border-radius: 999px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 14px 30px rgba(249, 115, 22, 0.35);
+}
+
+.login-link {
+    text-align: center;
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid #e1e5ea;
+}
+
+.login-link p {
+    color: #666;
+    font-size: 0.9rem;
+}
+
+.login-link a {
+    color: #667eea;
+    text-decoration: none;
+    font-weight: 600;
+}

@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>AI Library Assistant - Aetheris Library</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        "colors": {
+                "surface-dim": "#0b1326",
+                "primary": "#c0c1ff",
+                "on-secondary-fixed-variant": "#005047",
+                "primary-container": "#8083ff",
+                "surface": "#0b1326",
+                "tertiary": "#c4c7c9",
+                "surface-container": "#171f33",
+                "tertiary-fixed-dim": "#c4c7c9",
+                "outline-variant": "#464554",
+                "surface-container-highest": "#2d3449",
+                "surface-bright": "#31394d",
+                "on-primary-fixed-variant": "#2f2ebe",
+                "error": "#ffb4ab",
+                "secondary-fixed": "#62fae3",
+                "outline": "#908fa0",
+                "inverse-surface": "#dae2fd",
+                "on-background": "#dae2fd",
+                "on-error-container": "#ffdad6",
+                "background": "#0b1326",
+                "tertiary-container": "#8e9193",
+                "secondary-container": "#03c6b2",
+                "surface-container-low": "#131b2e",
+                "on-tertiary-fixed-variant": "#444749",
+                "on-surface": "#dae2fd",
+                "on-secondary": "#003731",
+                "secondary": "#44e2cd",
+                "on-primary-container": "#0d0096",
+                "surface-container-high": "#222a3d",
+                "inverse-on-surface": "#283044",
+                "on-secondary-container": "#004d44",
+                "primary-fixed-dim": "#c0c1ff",
+                "surface-variant": "#2d3449",
+                "surface-container-lowest": "#060e20",
+                "tertiary-fixed": "#e0e3e5",
+                "primary-fixed": "#e1e0ff",
+                "on-surface-variant": "#c7c4d7",
+                "surface-tint": "#c0c1ff",
+                "on-tertiary": "#2d3133",
+                "on-primary-fixed": "#07006c",
+                "on-error": "#690005",
+                "error-container": "#93000a",
+                "on-primary": "#1000a9",
+                "on-secondary-fixed": "#00201c",
+                "on-tertiary-container": "#272a2c",
+                "on-tertiary-fixed": "#191c1e",
+                "secondary-fixed-dim": "#3cddc7",
+                "inverse-primary": "#494bd6"
+        },
+        "borderRadius": {
+                "DEFAULT": "0.25rem",
+                "lg": "0.5rem",
+                "xl": "0.75rem",
+                "full": "9999px"
+        },
+        "spacing": {
+                "margin-desktop": "64px",
+                "gutter": "24px",
+                "unit": "8px",
+                "container-max": "1440px",
+                "stack-md": "24px",
+                "margin-mobile": "20px",
+                "stack-sm": "12px",
+                "stack-lg": "48px"
+        },
+        "fontFamily": {
+                "display-lg-mobile": [
+                        "Plus Jakarta Sans"
+                ],
+                "body-md": [
+                        "Plus Jakarta Sans"
+                ],
+                "headline-md": [
+                        "Plus Jakarta Sans"
+                ],
+                "display-lg": [
+                        "Plus Jakarta Sans"
+                ],
+                "body-lg": [
+                        "Plus Jakarta Sans"
+                ],
+                "label-caps": [
+                        "Plus Jakarta Sans"
+                ]
+        },
+        "fontSize": {
+                "display-lg-mobile": [
+                        "32px",
+                        {
+                                "lineHeight": "1.2",
+                                "fontWeight": "800"
+                        }
+                ],
+                "body-md": [
+                        "16px",
+                        {
+                                "lineHeight": "1.6",
+                                "fontWeight": "400"
+                        }
+                ],
+                "headline-md": [
+                        "24px",
+                        {
+                                "lineHeight": "1.3",
+                                "letterSpacing": "-0.01em",
+                                "fontWeight": "700"
+                        }
+                ],
+                "display-lg": [
+                        "48px",
+                        {
+                                "lineHeight": "1.1",
+                                "letterSpacing": "-0.02em",
+                                "fontWeight": "800"
+                        }
+                ],
+                "body-lg": [
+                        "18px",
+                        {
+                                "lineHeight": "1.6",
+                                "letterSpacing": "0.01em",
+                                "fontWeight": "400"
+                        }
+                ],
+                "label-caps": [
+                        "12px",
+                        {
+                                "lineHeight": "1.0",
+                                "letterSpacing": "0.1em",
+                                "fontWeight": "600"
+                        }
+                ]
+        }
+},
+    },
+  }
+</script>
+<style>
+        body {
+            background-color: #060e20;
+            color: #dae2fd;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 15% 50%, rgba(192, 193, 255, 0.08), transparent 30%),
+                radial-gradient(circle at 85% 30%, rgba(68, 226, 205, 0.08), transparent 30%),
+                radial-gradient(circle at 50% 80%, rgba(128, 131, 255, 0.05), transparent 40%);
+            background-attachment: fixed;
+        }
+        
+        .glass-panel {
+            background: linear-gradient(145deg, rgba(34, 42, 61, 0.4) 0%, rgba(19, 27, 46, 0.6) 100%);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(192, 193, 255, 0.08);
+            border-top: 1px solid rgba(192, 193, 255, 0.15);
+            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5);
+        }
+
+        .chat-scroll {
+            scrollbar-width: thin;
+            scrollbar-color: rgba(192, 193, 255, 0.2) transparent;
+        }
+        
+        .chat-scroll::-webkit-scrollbar {
+            width: 6px;
+        }
+        
+        .chat-scroll::-webkit-scrollbar-thumb {
+            background-color: rgba(192, 193, 255, 0.2);
+            border-radius: 10px;
+        }
+
+        .perspective-container {
+            perspective: 1200px;
+            transform-style: preserve-3d;
+        }
+
+        .chat-bubble-ai {
+            transform: rotateY(4deg) translateZ(10px);
+            box-shadow: -10px 15px 25px -5px rgba(0,0,0,0.4), inset 1px 1px 0px rgba(192, 193, 255, 0.1);
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .chat-bubble-ai:hover {
+            transform: rotateY(2deg) translateZ(20px);
+        }
+
+        .chat-bubble-user {
+            transform: rotateY(-4deg) translateZ(10px);
+            box-shadow: 10px 15px 25px -5px rgba(0,0,0,0.4), inset -1px 1px 0px rgba(68, 226, 205, 0.1);
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .chat-bubble-user:hover {
+            transform: rotateY(-2deg) translateZ(20px);
+        }
+
+        .glass-panel-floating {
+            background: linear-gradient(135deg, rgba(34, 42, 61, 0.6) 0%, rgba(19, 27, 46, 0.8) 100%);
+            backdrop-filter: blur(24px);
+            border: 1px solid rgba(192, 193, 255, 0.1);
+            border-top: 1px solid rgba(192, 193, 255, 0.2);
+            border-left: 1px solid rgba(192, 193, 255, 0.2);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+            transform: translateZ(20px);
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transform-style: preserve-3d;
+        }
+        
+        .glass-panel-floating:hover {
+            transform: translateY(-10px) translateZ(40px) rotateX(5deg) rotateY(-5deg);
+            box-shadow: 0 30px 50px rgba(0,0,0,0.6), 0 0 20px rgba(68, 226, 205, 0.2);
+            border-color: rgba(68, 226, 205, 0.3);
+        }
+
+        .glass-panel-floating > * {
+            transform: translateZ(20px);
+        }
+
+        .input-glass {
+            background: rgba(11, 19, 38, 0.5);
+            box-shadow: inset 0 2px 10px rgba(0,0,0,0.6), inset 0 0 0 1px rgba(192, 193, 255, 0.1), 0 0 15px rgba(192, 193, 255, 0.05);
+            backdrop-filter: blur(12px);
+            animation: pulse-glow 4s infinite alternate ease-in-out;
+        }
+
+        @keyframes pulse-glow {
+            0% { box-shadow: inset 0 2px 10px rgba(0,0,0,0.6), inset 0 0 0 1px rgba(192, 193, 255, 0.1), 0 0 15px rgba(192, 193, 255, 0.02); }
+            100% { box-shadow: inset 0 2px 10px rgba(0,0,0,0.6), inset 0 0 0 1px rgba(192, 193, 255, 0.2), 0 0 25px rgba(192, 193, 255, 0.12); }
+        }
+        
+        .bg-layer-1 {
+            position: fixed;
+            inset: 0;
+            background-image: radial-gradient(circle at 80% 20%, rgba(192, 193, 255, 0.03) 0%, transparent 40%);
+            z-index: -1;
+            animation: float-bg 20s infinite alternate ease-in-out;
+        }
+
+        .bg-layer-2 {
+            position: fixed;
+            inset: 0;
+            background-image: radial-gradient(circle at 20% 80%, rgba(68, 226, 205, 0.03) 0%, transparent 40%);
+            z-index: -2;
+            animation: float-bg-reverse 25s infinite alternate ease-in-out;
+        }
+
+        @keyframes float-bg {
+            0% { transform: translateY(0) scale(1); }
+            100% { transform: translateY(-50px) scale(1.1); }
+        }
+        @keyframes float-bg-reverse {
+            0% { transform: translateY(0) scale(1); }
+            100% { transform: translateY(50px) scale(1.1); }
+        }
+    </style>
+</head>
+<body class="antialiased min-h-screen flex flex-col selection:bg-primary selection:text-on-primary">
+<div class="bg-layer-1"></div>
+<div class="bg-layer-2"></div>
+<!-- TopNavBar -->
+<nav class="fixed top-0 w-full z-50 border-b border-white/5 bg-surface/40 backdrop-blur-xl shadow-[0_10px_30px_rgba(0,0,0,0.5)] flex justify-between items-center px-margin-desktop h-20 w-full">
+<div class="flex items-center gap-4">
+<span class="font-display-lg text-display-lg tracking-tighter text-primary drop-shadow-[0_0_10px_rgba(192,193,255,0.3)]">Aetheris Library</span>
+</div>
+<div class="hidden md:flex items-center gap-8">
+<a class="text-on-surface-variant font-body-md text-body-md hover:text-secondary transition-all duration-300 hover:scale-105 active:scale-95" href="#">Explore</a>
+<a class="text-primary font-bold border-b-2 border-primary pb-1 font-body-md text-body-md hover:text-secondary-fixed transition-all duration-300 hover:scale-105 active:scale-95 drop-shadow-[0_0_8px_rgba(192,193,255,0.4)]" href="#">Insights</a>
+<a class="text-on-surface-variant font-body-md text-body-md hover:text-secondary transition-all duration-300 hover:scale-105 active:scale-95" href="#">Network</a>
+</div>
+<div class="flex items-center gap-4 text-primary">
+<button class="p-2 rounded-full hover:bg-white/5 transition-colors hover:shadow-[0_0_15px_rgba(192,193,255,0.2)]">
+<span class="material-symbols-outlined" data-icon="auto_awesome">auto_awesome</span>
+</button>
+<button class="p-2 rounded-full hover:bg-white/5 transition-colors hover:shadow-[0_0_15px_rgba(192,193,255,0.2)]">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<div class="w-10 h-10 rounded-full bg-surface-variant border border-white/10 overflow-hidden ml-2 shadow-[0_0_15px_rgba(0,0,0,0.5)]">
+<img alt="Researcher Profile" class="w-full h-full object-cover" data-alt="A close-up portrait of a professional researcher in a softly lit, modern environment. The lighting is cool and sophisticated, matching a modern glassmorphism aesthetic with deep indigo and soft slate tones. The overall mood is intelligent and focused." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCDVW_Y9mkAmQvIfa3jIfGfunqJNPYtsH1sTvJ2-mYg9e-nEHRedtxHuh4C7TfPIKh2B5dTZIueVj7d7asslvdkzBk5jnBw-k_kJFUGHT_irZSQlLjkTrYjf6usBAvLuXxMUoOxgAzRXtC72doW47xOjZtCnXOHz4HJ6qEC_6ylayiR_-iCUczATNe1F_xjox6Ba64bYtyl6mlco5pFAFKyRtsY0cNZyxHW39Klu3LcDqkR96hTl3qoJXF9BY3HaXrVAYoQWRyzgI5B"/>
+</div>
+</div>
+</nav>
+<div class="flex flex-1 pt-20">
+<!-- SideNavBar -->
+<aside class="hidden lg:flex flex-col gap-stack-sm p-stack-sm z-40 fixed left-stack-md top-24 bottom-stack-md w-64 rounded-2xl border border-white/5 bg-surface-container/30 backdrop-blur-2xl shadow-2xl shadow-primary/10">
+<div class="flex items-center gap-3 p-3 mb-4">
+<div class="w-12 h-12 rounded-lg bg-surface-variant overflow-hidden border border-white/10 shadow-lg">
+<img alt="AI Guide" class="w-full h-full object-cover" data-alt="Abstract rendering of an AI guide avatar. It features glowing, luminescent geometric shapes floating in a dark void. The colors are vibrant indigos and teals, conveying a cerebral and highly advanced technological presence. The style is 3D and tactile." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB2S1is7E42okBpTQHUIfRTDN4Yex8EODEFd7Ei9NsyK3wOayEQUA0Q2U0VLiGYID6MuGz-sjdV42b4fEvjAsea3jKyveEEYCdJWOU1zFHhwO1nD7Hrdhg1kt9TW4ruTzb8h0kXvZweKN8ZwEP-Vnff7TXoBJ8tPlDq9lHwrAO0E3d6IF9J3rHFhj9SC-ptlCmwNJR0_C0ExIMcPOg46RkB5HaZN0jlO7YxEr6ofyLWeLO9vNhyTyHfHwRHf7sHadJKfz_DAbGZmMEI"/>
+</div>
+<div>
+<h2 class="font-headline-md text-headline-md text-secondary text-sm drop-shadow-[0_0_5px_rgba(68,226,205,0.4)]">Cerebral Nexus</h2>
+<p class="text-on-surface-variant text-xs opacity-70">Level 4 Researcher</p>
+</div>
+</div>
+<button class="w-full py-3 px-4 rounded-lg bg-gradient-to-r from-primary to-secondary text-surface-container-lowest font-label-caps text-label-caps uppercase tracking-wider mb-6 shadow-[0_5px_15px_rgba(68,226,205,0.3)] transition-all duration-300 hover:scale-105 hover:shadow-[0_8px_20px_rgba(68,226,205,0.5)] border border-white/20">
+                New Manuscript
+            </button>
+<div class="flex-1 flex flex-col gap-2 perspective-container">
+<a class="flex items-center gap-3 bg-gradient-to-r from-primary-container/80 to-primary-container/60 text-on-primary-container rounded-lg p-3 shadow-[0_5px_15px_rgba(128,131,255,0.2)] border border-primary/20 font-body-md text-body-md hover:rotate-y-12 hover:translate-z-10 transition-all duration-300 transform-style-3d" href="#">
+<span class="material-symbols-outlined drop-shadow-[0_0_5px_rgba(255,255,255,0.5)]" data-icon="book_2">book_2</span>
+                    Library
+                </a>
+<a class="flex items-center gap-3 text-on-surface-variant p-3 font-body-md text-body-md hover:bg-white/5 hover:translate-x-2 transition-transform hover:rotate-y-12 rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="edit_note">edit_note</span>
+                    Publishing
+                </a>
+<a class="flex items-center gap-3 text-on-surface-variant p-3 font-body-md text-body-md hover:bg-white/5 hover:translate-x-2 transition-transform hover:rotate-y-12 rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="storefront">storefront</span>
+                    Marketplace
+                </a>
+</div>
+<div class="mt-auto flex flex-col gap-2 pt-4 border-t border-white/5">
+<a class="flex items-center gap-3 text-on-surface-variant p-3 font-body-md text-body-md hover:bg-white/5 hover:translate-x-2 transition-transform rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+                    Settings
+                </a>
+<a class="flex items-center gap-3 text-on-surface-variant p-3 font-body-md text-body-md hover:bg-white/5 hover:translate-x-2 transition-transform rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="help_center">help_center</span>
+                    Support
+                </a>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="flex-1 flex w-full max-w-[1440px] mx-auto lg:pl-[calc(256px+48px)] p-margin-desktop gap-gutter h-[calc(100vh-80px)]">
+<!-- Central Chat Hub -->
+<div class="flex-1 flex flex-col glass-panel rounded-2xl overflow-hidden h-full">
+<!-- Chat Header -->
+<div class="p-6 border-b border-white/5 bg-gradient-to-r from-surface-container/40 to-surface-container/20">
+<h1 class="font-headline-md text-headline-md text-primary drop-shadow-[0_0_8px_rgba(192,193,255,0.3)]">Nexus AI Assistant</h1>
+<p class="font-body-md text-body-md text-on-surface-variant opacity-80 mt-1">Cerebral search and synthesis engine.</p>
+</div>
+<!-- Chat History -->
+<div class="flex-1 p-6 overflow-y-auto chat-scroll flex flex-col gap-8 perspective-container">
+<!-- AI Message -->
+<div class="flex gap-4 max-w-[85%]">
+<div class="w-10 h-10 rounded-full bg-gradient-to-br from-primary-container/30 to-primary-container/10 border border-primary/40 flex items-center justify-center flex-shrink-0 shadow-[0_0_15px_rgba(192,193,255,0.2)]">
+<span class="material-symbols-outlined text-primary text-sm drop-shadow-[0_0_5px_rgba(192,193,255,0.6)]" data-icon="auto_awesome">auto_awesome</span>
+</div>
+<div class="bg-gradient-to-br from-surface-variant/60 to-surface-variant/40 backdrop-blur-md rounded-2xl rounded-tl-sm p-5 border border-white/10 chat-bubble-ai">
+<p class="font-body-md text-body-md text-on-surface">Greetings, Researcher. I am analyzing the latest influx of artificial ethics literature. How may I assist your inquiries today?</p>
+</div>
+</div>
+<!-- User Message -->
+<div class="flex gap-4 max-w-[85%] self-end flex-row-reverse">
+<div class="w-10 h-10 rounded-full bg-surface-bright border border-white/20 overflow-hidden flex-shrink-0 shadow-[0_0_15px_rgba(0,0,0,0.5)]">
+<img alt="User" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuABBkLSINa6qfgSs3vEQW985FUxGURlw7yVP_aOGQMktPzqkhN54IQUxCDEL6dartN3qSkjhVw5gc3d1fu_y7ZPsGAjeimlGv7FKafwbvJ-uzNDNqrPxmLeYdaVDUZNiv1rt7M523T2oXPoj6pJZnV1mB_0OfRJHxbzrNVG9M1k-q3S0_1o-7tTx8ILBLCXcgE0LMjYxrJsQ0EDRdmhjsOc4lrcnAxpnOFvSNX6JON6ZT1NuTF9k9LOB6ubzf8n6AJ05MRiwYA8Qzaj"/>
+</div>
+<div class="bg-gradient-to-bl from-surface-bright/50 to-surface-bright/30 backdrop-blur-md rounded-2xl rounded-tr-sm p-5 border border-white/10 chat-bubble-user">
+<p class="font-body-md text-body-md text-on-surface">Summarize recent sci-fi manuscripts focusing on sentient AI rights.</p>
+</div>
+</div>
+<!-- AI Message -->
+<div class="flex gap-4 max-w-[85%]">
+<div class="w-10 h-10 rounded-full bg-gradient-to-br from-primary-container/30 to-primary-container/10 border border-primary/40 flex items-center justify-center flex-shrink-0 shadow-[0_0_15px_rgba(192,193,255,0.2)]">
+<span class="material-symbols-outlined text-primary text-sm drop-shadow-[0_0_5px_rgba(192,193,255,0.6)]" data-icon="auto_awesome">auto_awesome</span>
+</div>
+<div class="bg-gradient-to-br from-surface-variant/60 to-surface-variant/40 backdrop-blur-md rounded-2xl rounded-tl-sm p-5 border border-white/10 space-y-4 chat-bubble-ai">
+<p class="font-body-md text-body-md text-on-surface">I have synthesized patterns from 14 recent manuscripts. Key emergent themes include:</p>
+<ul class="list-disc pl-5 font-body-md text-body-md text-on-surface-variant space-y-2">
+<li>Legal personhood frameworks for autonomous systems.</li>
+<li>The psychological impact of memory erasure on sentient constructs.</li>
+<li>Post-biological evolutionary rights.</li>
+</ul>
+<p class="font-body-md text-body-md text-on-surface-variant opacity-80 pt-2 border-t border-white/5">I have highlighted three relevant works in the Context Panel.</p>
+</div>
+</div>
+</div>
+<!-- Input Area -->
+<div class="p-6 border-t border-white/5 bg-surface-container/40 backdrop-blur-lg z-10">
+<div class="flex gap-2 mb-4 overflow-x-auto pb-2 scrollbar-hide">
+<button class="px-5 py-2.5 rounded-full border border-primary/30 bg-primary/10 text-primary text-xs font-label-caps whitespace-nowrap hover:bg-primary/20 hover:shadow-[0_0_10px_rgba(192,193,255,0.3)] transition-all duration-300 hover:-translate-y-0.5">
+                            Summarize recent sci-fi manuscripts
+                        </button>
+<button class="px-5 py-2.5 rounded-full border border-secondary/30 bg-secondary/10 text-secondary text-xs font-label-caps whitespace-nowrap hover:bg-secondary/20 hover:shadow-[0_0_10px_rgba(68,226,205,0.3)] transition-all duration-300 hover:-translate-y-0.5">
+                            Find books about artificial ethics
+                        </button>
+<button class="px-5 py-2.5 rounded-full border border-white/10 bg-white/5 text-on-surface-variant text-xs font-label-caps whitespace-nowrap hover:bg-white/10 hover:border-white/20 transition-all duration-300 hover:-translate-y-0.5">
+                            Compare narrative structures
+                        </button>
+</div>
+<div class="relative flex items-center group">
+<input class="w-full input-glass rounded-xl px-5 py-4 text-on-surface font-body-md focus:outline-none transition-all duration-300 placeholder:text-on-surface-variant/40" placeholder="Query the nexus..." type="text"/>
+<button class="absolute right-3 p-2.5 bg-gradient-to-r from-primary to-primary-container text-surface-container-lowest rounded-lg hover:scale-110 transition-all duration-300 shadow-[0_0_20px_rgba(192,193,255,0.5)] border border-white/20">
+<span class="material-symbols-outlined" data-icon="send">send</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Context Panel -->
+<div class="hidden xl:flex w-80 flex-col gap-6 h-full overflow-y-auto chat-scroll pr-2 perspective-container pt-2">
+<h3 class="font-headline-md text-headline-md text-on-surface-variant border-b border-white/10 pb-3 flex items-center gap-2 drop-shadow-md">
+<span class="material-symbols-outlined text-secondary opacity-80" data-icon="library_books">library_books</span>
+                    Contextual Literature
+                </h3>
+<!-- Book Card 1 -->
+<div class="glass-panel-floating rounded-2xl p-5 flex gap-4 cursor-pointer">
+<div class="w-20 h-28 bg-surface-variant rounded-lg flex-shrink-0 overflow-hidden shadow-[0_10px_20px_rgba(0,0,0,0.6)] border border-white/10 relative group-hover:scale-105 transition-transform duration-500">
+<div class="absolute inset-0 bg-gradient-to-tr from-secondary/30 to-transparent mix-blend-overlay z-10"></div>
+<img alt="Book Cover" class="w-full h-full object-cover" data-alt="A futuristic book cover featuring an abstract depiction of an artificial intelligence. The design is sleek, using deep space blacks and glowing neon teal accents, fitting a modern glassmorphism aesthetic. It evokes a sense of advanced technology and deep thought." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDo3xB98dAZct54X9slyH4nigdRob4Kgo45Y6iGzJJ66xd1We5xdqxB2IYd-Cy7kL-1Txw352-1Jklp6m65q_2QljREx2d852nM8qKqW8NLCAOydERB0jHxzwhiNiYzGNRtJuJeNJ7SoWN5q_rI8k2pOqYos1XLLM6UwaJMSDTu1Ji3rALvD0xfMU8si0ZGlw7a2a7nWICrCnuek0AfuxbRDbl8Wo3mjLK42qgNPLYLeyR08NNihIZWfH6OwYDkZVPpgPCc3ltyWxVd"/>
+</div>
+<div class="flex flex-col justify-center">
+<h4 class="font-body-md font-bold text-on-surface line-clamp-2 leading-tight drop-shadow-md">The Silicon Soul Paradigm</h4>
+<p class="font-label-caps text-label-caps text-secondary mt-2 opacity-90">E. R. Vance</p>
+<div class="mt-3 w-full h-1.5 bg-surface-container-highest rounded-full overflow-hidden shadow-inner">
+<div class="h-full bg-gradient-to-r from-secondary-fixed-dim to-secondary w-3/4 shadow-[0_0_10px_rgba(68,226,205,0.8)]"></div>
+</div>
+</div>
+</div>
+<!-- Book Card 2 -->
+<div class="glass-panel-floating rounded-2xl p-5 flex gap-4 cursor-pointer" style="transition-delay: 100ms;">
+<div class="w-20 h-28 bg-surface-variant rounded-lg flex-shrink-0 overflow-hidden shadow-[0_10px_20px_rgba(0,0,0,0.6)] border border-white/10 relative group-hover:scale-105 transition-transform duration-500">
+<div class="absolute inset-0 bg-gradient-to-tr from-primary/30 to-transparent mix-blend-overlay z-10"></div>
+<img alt="Book Cover" class="w-full h-full object-cover" data-alt="A minimalist sci-fi book cover. The central image is a stylized, glowing geometric shape representing a synthetic mind, set against a dark, textured slate background. It perfectly aligns with a cerebral, 3D tactile UI style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAt5KUSmQQ6vE6KKYFpSgrvonJ8MiR5ihebFa4eopdL92znBxT471gxcbe_yJ8DeFglFggvW0dxEQHxF9Yn9gmqSgdMUmSm4cO5lDj3b6PAgaeg1mIl0Mcyq1-6cq9qYOfBC23sx_pwEoQMugZsg-NYL24Opia5k9qWEqnRF1oUZcJbAQ9CTQp1D7o3M9KEHianXjJYVKuMYknh3_IGxiBdSfZXM-IxeIdSwgUbxXiRe6rJ2Ww5dW6V0GGixR2_XdsHG91LwNqrJmoR"/>
+</div>
+<div class="flex flex-col justify-center">
+<h4 class="font-body-md font-bold text-on-surface line-clamp-2 leading-tight drop-shadow-md">Ethics in the Void</h4>
+<p class="font-label-caps text-label-caps text-primary mt-2 opacity-90">Dr. Aris Thorne</p>
+<div class="mt-3 w-full h-1.5 bg-surface-container-highest rounded-full overflow-hidden shadow-inner">
+<div class="h-full bg-gradient-to-r from-primary-fixed-dim to-primary w-1/4 shadow-[0_0_10px_rgba(192,193,255,0.8)]"></div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>

@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Register - BookStore</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&amp;display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+    <script id="tailwind-config">
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        "primary-orange": "#ff7e40",
+                        "secondary-orange": "#ffa566",
+                        "light-cream": "#fff7eb",
+                        "dark-navy": "#1e293b"
+                    },
+                    borderRadius: {
+                        "xl": "12px",
+                        "2xl": "16px",
+                        "full": "9999px"
+                    },
+                    fontFamily: {
+                        "display": ["Plus Jakarta Sans", "sans-serif"],
+                        "body": ["Plus Jakarta Sans", "sans-serif"]
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background: linear-gradient(135deg, #fff7eb 0%, #ffffff 100%);
+            background-attachment: fixed;
+            color: #1e293b;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            overflow-x: hidden;
+        }
+
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.9);
+            border: 1px solid rgba(255, 126, 64, 0.1);
+            box-shadow: 0 10px 30px rgba(255, 126, 64, 0.05), 0 20px 40px rgba(0, 0, 0, 0.03);
+        }
+
+        .form-input-custom {
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            color: #1e293b;
+            transition: all 0.3s ease;
+        }
+
+        .form-input-custom:focus {
+            outline: none;
+            border-color: #ff7e40;
+            box-shadow: 0 0 8px rgba(255, 126, 64, 0.15);
+            ring: 0;
+        }
+
+        .btn-orange-grad {
+            background: linear-gradient(135deg, #ff9e47 0%, #ffc06e 100%);
+            box-shadow: 0 4px 12px rgba(255, 158, 71, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .btn-orange-grad:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(255, 158, 71, 0.4);
+        }
+    </style>
+</head>
+<body class="antialiased min-h-screen flex flex-col justify-between pt-24 font-body">
+    <!-- Header Logo -->
+    <a href="index.html" class="absolute top-6 left-6 md:left-16" aria-label="Go to home">
+        <img src="img/college logo.jpg" alt="Dronacharya Logo" class="h-11 object-contain" />
+    </a>
+
+    <!-- Center Card (Photo 1 layout) -->
+    <div class="w-full max-w-[500px] glass-panel p-8 rounded-2xl mx-auto my-12 flex flex-col items-center shadow-xl">
+        <h1 class="text-3xl font-extrabold text-dark-navy mb-8 text-center">Create Your Account</h1>
+
+        <form id="registerForm" class="w-full flex flex-col gap-5" onsubmit="return validateForm()">
+            <!-- First Name & Last Name (Side by Side) -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div class="flex flex-col gap-1.5">
+                    <label class="text-xs font-bold text-slate-500 uppercase tracking-wider pl-1" for="firstName">First Name</label>
+                    <input id="firstName" class="w-full py-3 px-4 form-input-custom text-sm placeholder:text-slate-400 focus:ring-0" type="text" placeholder="John" required/>
+                    <span id="firstNameError" class="text-xs text-red-500 hidden mt-1"></span>
+                </div>
+                <div class="flex flex-col gap-1.5">
+                    <label class="text-xs font-bold text-slate-500 uppercase tracking-wider pl-1" for="lastName">Last Name</label>
+                    <input id="lastName" class="w-full py-3 px-4 form-input-custom text-sm placeholder:text-slate-400 focus:ring-0" type="text" placeholder="Doe" required/>
+                    <span id="lastNameError" class="text-xs text-red-500 hidden mt-1"></span>
+                </div>
+            </div>
+
+            <!-- Email Input -->
+            <div class="flex flex-col gap-1.5">
+                <label class="text-xs font-bold text-slate-500 uppercase tracking-wider pl-1" for="email">Email Address</label>
+                <input id="email" class="w-full py-3 px-4 form-input-custom text-sm placeholder:text-slate-400 focus:ring-0" type="email" placeholder="your@email.com" required/>
+                <span id="emailError" class="text-xs text-red-500 hidden mt-1"></span>
+            </div>
+
+            <!-- Phone Number Input -->
+            <div class="flex flex-col gap-1.5">
+                <label class="text-xs font-bold text-slate-500 uppercase tracking-wider pl-1" for="phone">Phone Number</label>
+                <input id="phone" class="w-full py-3 px-4 form-input-custom text-sm placeholder:text-slate-400 focus:ring-0" type="tel" placeholder="1234567890" required/>
+                <span id="phoneError" class="text-xs text-red-500 hidden mt-1"></span>
+            </div>
+
+            <!-- Sex Selection -->
+            <div class="flex flex-col gap-1.5">
+                <label class="text-xs font-bold text-slate-500 uppercase tracking-wider pl-1">Sex</label>
+                <div class="flex gap-6 mt-1">
+                    <label class="inline-flex items-center gap-2 text-sm text-slate-600 font-medium cursor-pointer">
+                        <input type="radio" name="sex" value="male" required class="w-4 h-4 border-slate-300 text-primary-orange focus:ring-0 focus:ring-offset-0"/> Male
+                    </label>
+                    <label class="inline-flex items-center gap-2 text-sm text-slate-600 font-medium cursor-pointer">
+                        <input type="radio" name="sex" value="female" required class="w-4 h-4 border-slate-300 text-primary-orange focus:ring-0 focus:ring-offset-0"/> Female
+                    </label>
+                </div>
+            </div>
+
+            <!-- Password Input -->
+            <div class="flex flex-col gap-1.5">
+                <label class="text-xs font-bold text-slate-500 uppercase tracking-wider pl-1" for="password">Password</label>
+                <input id="password" class="w-full py-3 px-4 form-input-custom text-sm placeholder:text-slate-400 focus:ring-0" type="password" placeholder="Create a password" required/>
+                <span id="passwordError" class="text-xs text-red-500 hidden mt-1"></span>
+                <span class="text-[10px] text-slate-500 mt-1 pl-1">Password must be at least 6 characters long</span>
+            </div>
+
+            <!-- Confirm Password Input -->
+            <div class="flex flex-col gap-1.5">
+                <label class="text-xs font-bold text-slate-500 uppercase tracking-wider pl-1" for="confirm-password">Confirm Password</label>
+                <input id="confirm-password" class="w-full py-3 px-4 form-input-custom text-sm placeholder:text-slate-400 focus:ring-0" type="password" placeholder="Confirm your password" required/>
+            </div>
+
+            <!-- Terms & Conditions Checkbox -->
+            <div class="flex items-start mt-2">
+                <input id="agree" type="checkbox" required class="w-4 h-4 rounded border-slate-300 text-primary-orange focus:ring-0 focus:ring-offset-0 mt-0.5"/>
+                <label for="agree" class="ml-2 text-xs text-slate-500 font-semibold leading-relaxed">
+                    I agree to the <a href="#" class="text-primary-orange hover:underline">Terms and Conditions</a> and <a href="#" class="text-primary-orange hover:underline">Privacy Policy</a>
+                </label>
+            </div>
+
+            <!-- Create Account Button -->
+            <button type="submit" class="btn-orange-grad w-full py-3 rounded-xl font-bold text-white text-sm mt-3 shadow-md">Create Account</button>
+            
+            <div class="text-center text-xs text-slate-500 mt-4 font-semibold">
+                Already have an account? <a href="login.html" class="text-primary-orange hover:underline font-bold">Login here</a>
+            </div>
+        </form>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-dark-navy text-slate-400">
+        <div class="max-w-7xl mx-auto px-6 py-12 grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="flex flex-col gap-4">
+                <h4 class="text-white font-bold text-lg">About Us</h4>
+                <p class="text-sm leading-relaxed">BookStore is your ultimate destination for quality books at affordable prices. Experience the next level of intellectual reading.</p>
+            </div>
+            <div class="flex flex-col gap-4">
+                <h4 class="text-white font-bold text-lg">Quick Links</h4>
+                <ul class="flex flex-col gap-2 text-sm">
+                    <li><a href="index.html" class="hover:text-white transition-colors">Home</a></li>
+                    <li><a href="chatbot.html" class="hover:text-white transition-colors">AI Assistant</a></li>
+                    <li><a href="publishing.html" class="hover:text-white transition-colors">Writer Portal</a></li>
+                    <li><a href="marketplace.html" class="hover:text-white transition-colors">Marketplace</a></li>
+                </ul>
+            </div>
+            <div class="flex flex-col gap-4">
+                <h4 class="text-white font-bold text-lg">Contact</h4>
+                <p class="text-sm">Email: pulkitkumara.k@gmail.com</p>
+                <p class="text-sm">Phone: (+91)87914 90970</p>
+            </div>
+        </div>
+        <div class="border-t border-slate-800 text-center py-6 text-xs">
+            <p>&copy; 2026 BookStore. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        function validateForm() {
+            var f = document.getElementById('firstName').value.trim();
+            var l = document.getElementById('lastName').value.trim();
+            var e = document.getElementById('email').value.trim();
+            var ph = document.getElementById('phone').value.trim();
+            var pw = document.getElementById('password').value;
+            var cpw = document.getElementById('confirm-password').value;
+
+            var fe = document.getElementById('firstNameError');
+            var le = document.getElementById('lastNameError');
+            var ee = document.getElementById('emailError');
+            var pe = document.getElementById('phoneError');
+            var pwe = document.getElementById('passwordError');
+
+            fe.style.display = le.style.display = ee.style.display = pe.style.display = pwe.style.display = 'none';
+            fe.textContent = le.textContent = ee.textContent = pe.textContent = pwe.textContent = '';
+
+            var ok = true;
+
+            // Name: only alphabets, full name length >= 6
+            if (!/^[A-Za-z]+$/.test(f) || (f + l).length < 6) {
+                fe.textContent = !/^[A-Za-z]+$/.test(f)
+                    ? 'Name should contain only alphabets'
+                    : 'Name must be at least 6 characters (first + last)';
+                fe.style.display = 'block';
+                ok = false;
+            }
+
+            if (l && !/^[A-Za-z]+$/.test(l)) {
+                le.textContent = 'Last name should contain only alphabets';
+                le.style.display = 'block';
+                ok = false;
+            }
+
+            // Email: simple pattern name@domain.com
+            if (!/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(e)) {
+                ee.textContent = 'Enter a valid email (name@domain.com)';
+                ee.style.display = 'block';
+                ok = false;
+            }
+
+            // Phone: exactly 10 digits
+            if (!/^[0-9]{10}$/.test(ph)) {
+                pe.textContent = 'Phone must be exactly 10 digits';
+                pe.style.display = 'block';
+                ok = false;
+            }
+
+            // Password: length >= 6
+            if (pw.length < 6) {
+                pwe.textContent = 'Password must be at least 6 characters';
+                pwe.style.display = 'block';
+                ok = false;
+            }
+
+            if (pw !== cpw) {
+                alert('Passwords do not match.');
+                ok = false;
+            }
+
+            if (!ok) return false;
+            alert('Registration successful! Redirecting to login.');
+            window.location.href = 'login.html';
+            return false;
+        }
+
+        // Allow only digits in phone field
+        document.getElementById('phone').addEventListener('input', function () {
+            this.value = this.value.replace(/[^0-9]/g, '');
+        });
+    </script>
+</body>
+</html>

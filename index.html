@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>BookStore - Your Premium Online Bookshop</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&amp;display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+    <script id="tailwind-config">
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        "primary-orange": "#ff7e40",
+                        "secondary-orange": "#ffa566",
+                        "light-cream": "#fff7eb",
+                        "dark-navy": "#1e293b",
+                        "custom-teal": "#20cda2"
+                    },
+                    borderRadius: {
+                        "xl": "12px",
+                        "2xl": "16px",
+                        "full": "9999px"
+                    },
+                    fontFamily: {
+                        "display": ["Plus Jakarta Sans", "sans-serif"],
+                        "body": ["Plus Jakarta Sans", "sans-serif"]
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background: linear-gradient(135deg, #fff7eb 0%, #ffffff 100%);
+            background-attachment: fixed;
+            color: #1e293b;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            overflow-x: hidden;
+        }
+
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            box-shadow: 0 8px 32px 0 rgba(255, 126, 64, 0.04);
+        }
+
+        .book-card-3d {
+            background: rgba(255, 255, 255, 0.85);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 0 10px 25px rgba(255, 126, 64, 0.05), 0 4px 10px rgba(0, 0, 0, 0.02);
+            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+            transform-style: preserve-3d;
+            perspective: 1000px;
+        }
+
+        .book-card-3d:hover {
+            transform: translateY(-8px) scale(1.02) rotateX(3deg) rotateY(-3deg);
+            box-shadow: 0 25px 45px rgba(255, 126, 64, 0.12), 0 10px 20px rgba(0, 0, 0, 0.04);
+            border-color: rgba(255, 126, 64, 0.2);
+        }
+
+        .btn-orange-grad {
+            background: linear-gradient(135deg, #ff7e40 0%, #ffa566 100%);
+            box-shadow: 0 4px 12px rgba(255, 126, 64, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .btn-orange-grad:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(255, 126, 64, 0.5);
+        }
+
+        .category-chip {
+            transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+            background: rgba(255, 255, 255, 0.6);
+            border: 1px solid rgba(255, 126, 64, 0.15);
+        }
+
+        .category-chip:hover {
+            background: rgba(255, 255, 255, 0.9);
+            transform: translateY(-2px);
+        }
+
+        .category-chip.active {
+            background: linear-gradient(135deg, #ff7e40 0%, #ffa566 100%);
+            border-color: transparent;
+            color: white;
+            box-shadow: 0 4px 12px rgba(255, 126, 64, 0.3);
+        }
+
+        .text-glow-orange {
+            text-shadow: 0 0 15px rgba(255, 126, 64, 0.2);
+        }
+
+        .trending-card {
+            background: #fffcf8;
+            border: 1px solid #ffe9d6;
+            box-shadow: 0 8px 20px rgba(255, 126, 64, 0.03);
+            transition: all 0.3s ease;
+        }
+
+        .trending-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(255, 126, 64, 0.08);
+        }
+    </style>
+</head>
+<body class="antialiased min-h-screen flex flex-col font-body">
+    <!-- Navbar -->
+    <nav class="glass-panel fixed top-0 w-full z-50 flex justify-between items-center px-6 md:px-16 h-20 border-b border-orange-100">
+        <div class="flex items-center gap-4">
+            <a href="index.html" class="logo">
+                <img src="img/college logo.jpg" alt="Dronacharya Logo" class="h-11 object-contain" />
+            </a>
+        </div>
+        <ul class="hidden md:flex items-center gap-8 font-semibold text-dark-navy">
+            <li><a href="index.html" class="text-primary-orange">Home</a></li>
+            <li><a href="chatbot.html" class="hover:text-primary-orange transition-colors">AI Assistant</a></li>
+            <li><a href="publishing.html" class="hover:text-primary-orange transition-colors">Publishing</a></li>
+            <li><a href="marketplace.html" class="hover:text-primary-orange transition-colors">Marketplace</a></li>
+        </ul>
+        <div class="flex items-center gap-4 font-semibold">
+            <a href="cart.html" class="p-2 text-dark-navy hover:text-primary-orange transition-colors relative">
+                <span class="material-symbols-outlined text-2xl">shopping_cart</span>
+            </a>
+            <a href="login.html" class="px-5 py-2 border border-primary-orange text-primary-orange rounded-full hover:bg-primary-orange hover:text-white transition-all">Login</a>
+            <a href="register.html" class="px-5 py-2 bg-primary-orange text-white rounded-full hover:bg-orange-600 transition-all shadow-md">Register</a>
+        </div>
+    </nav>
+
+    <!-- Main Content Wrapper -->
+    <main class="w-full max-w-7xl mx-auto px-6 pt-28 pb-16 flex flex-col gap-12">
+        <!-- Hero Section -->
+        <section class="flex flex-col md:flex-row items-center justify-between gap-8 py-12">
+            <div class="flex-1 flex flex-col items-start gap-6">
+                <h1 class="text-4xl md:text-5xl font-extrabold text-dark-navy leading-tight">Welcome to BookStore</h1>
+                <p class="text-lg text-slate-600 max-w-lg leading-relaxed">Discover thousands of books from around the world. Connect with virtual librarians and publish your manuscripts.</p>
+                <div class="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
+                    <button onclick="scrollToShelves()" class="btn-orange-grad px-8 py-3 text-white font-bold rounded-full">Explore Catalogue</button>
+                    <a href="chatbot.html" class="px-8 py-3 border border-primary-orange text-primary-orange hover:bg-orange-50 font-bold rounded-full text-center">AI Virtual Librarian</a>
+                </div>
+            </div>
+            <!-- "New This Week" Card -->
+            <div class="w-full md:w-[450px] glass-panel p-6 rounded-2xl border border-orange-100 flex flex-col gap-4 shadow-xl">
+                <div class="flex justify-between items-center">
+                    <h2 class="text-xl font-bold text-dark-navy">New this week</h2>
+                    <span class="text-xs text-primary-orange font-bold font-label-caps uppercase tracking-wider">Weekly Featured</span>
+                </div>
+                <div class="flex items-center gap-4 bg-orange-50/50 p-4 rounded-xl border border-orange-100/50">
+                    <img src="img/Clean code.png" class="h-28 object-contain rounded-md shadow-md" alt="Featured Book"/>
+                    <div>
+                        <h3 class="font-bold text-dark-navy text-lg">Clean Code</h3>
+                        <p class="text-sm text-slate-500 mb-2">Robert C. Martin</p>
+                        <span class="px-2.5 py-1 bg-orange-100 text-primary-orange text-xs font-bold rounded">Programming</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Search & Category Filtering -->
+        <section class="flex flex-col md:flex-row gap-6 justify-between items-center border-t border-orange-50 pt-8">
+            <div class="relative w-full md:w-96 group">
+                <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-slate-400">search</span>
+                <input id="search-input" onkeyup="filterBooks()" class="w-full pl-11 pr-4 py-3 rounded-full border border-orange-100 focus:outline-none focus:border-primary-orange focus:ring-1 focus:ring-primary-orange/50 bg-white/70" placeholder="Search title or author..."/>
+            </div>
+            <div class="flex flex-wrap gap-2 w-full md:w-auto">
+                <button onclick="selectCategory('all')" id="chip-all" class="category-chip active px-5 py-2.5 rounded-full text-xs font-bold font-label-caps uppercase tracking-wider">All</button>
+                <button onclick="selectCategory('programming')" id="chip-programming" class="category-chip px-5 py-2.5 rounded-full text-xs font-bold text-slate-600 font-label-caps uppercase tracking-wider">Programming</button>
+                <button onclick="selectCategory('psychology')" id="chip-psychology" class="category-chip px-5 py-2.5 rounded-full text-xs font-bold text-slate-600 font-label-caps uppercase tracking-wider">Psychology</button>
+                <button onclick="selectCategory('self-improvement')" id="chip-self-improvement" class="category-chip px-5 py-2.5 rounded-full text-xs font-bold text-slate-600 font-label-caps uppercase tracking-wider">Self-Improvement</button>
+            </div>
+        </section>
+
+        <!-- Dynamic Shelves Section -->
+        <section id="shelves-section" class="flex flex-col gap-16">
+            <!-- Programming Shelf -->
+            <div class="shelf-group" data-group-category="programming">
+                <div class="text-center mb-8">
+                    <h2 class="text-3xl font-extrabold text-dark-navy mb-2">Programming Essentials</h2>
+                    <p class="text-slate-500 italic">“Code is poetry written in logic, where every line tells a story of innovation.”</p>
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+                    <!-- Clean Code -->
+                    <div class="book-card-3d rounded-2xl p-5 cursor-pointer flex flex-col h-[24rem] book-item" data-category="programming" data-title="clean code" data-author="robert c martin">
+                        <div onclick="openBookDetails('Clean Code', 'Robert C. Martin', 'Rs 99', 'Learn clean code practices, refactoring workflows, and software craft secrets.', 'img/Clean code.png')" class="w-full h-48 rounded-xl overflow-hidden relative mb-5 border border-orange-50 shadow flex items-center justify-center bg-orange-50/20">
+                            <img src="img/Clean code.png" class="h-44 object-contain" alt="Clean Code"/>
+                        </div>
+                        <h3 class="font-extrabold text-dark-navy leading-snug mb-1 truncate">Clean Code</h3>
+                        <p class="text-sm text-slate-500 mb-4 truncate">Robert C. Martin</p>
+                        <div class="mt-auto flex justify-between items-center">
+                            <span class="text-primary-orange font-bold text-lg">Rs 99</span>
+                            <button onclick="addToCartMock('Clean Code')" class="btn-orange-grad px-4 py-2 text-white text-xs font-bold rounded-lg">Add to Cart</button>
+                        </div>
+                    </div>
+                    <!-- The Pragmatic Programmer -->
+                    <div class="book-card-3d rounded-2xl p-5 cursor-pointer flex flex-col h-[24rem] book-item" data-category="programming" data-title="the pragmatic programmer" data-author="andrew hunt david thomas">
+                        <div onclick="openBookDetails('The Pragmatic Programmer', 'Andrew Hunt & David Thomas', 'Rs 199', 'Practical software engineering tips covering career progression and flexible code.', 'img/The Pragmatic Programmer.png')" class="w-full h-48 rounded-xl overflow-hidden relative mb-5 border border-orange-50 shadow flex items-center justify-center bg-orange-50/20">
+                            <img src="img/The Pragmatic Programmer.png" class="h-44 object-contain" alt="The Pragmatic Programmer"/>
+                        </div>
+                        <h3 class="font-extrabold text-dark-navy leading-snug mb-1 truncate">The Pragmatic Programmer</h3>
+                        <p class="text-sm text-slate-500 mb-4 truncate">Andrew Hunt & David Thomas</p>
+                        <div class="mt-auto flex justify-between items-center">
+                            <span class="text-primary-orange font-bold text-lg">Rs 199</span>
+                            <button onclick="addToCartMock('The Pragmatic Programmer')" class="btn-orange-grad px-4 py-2 text-white text-xs font-bold rounded-lg">Add to Cart</button>
+                        </div>
+                    </div>
+                    <!-- Grokking Algorithms -->
+                    <div class="book-card-3d rounded-2xl p-5 cursor-pointer flex flex-col h-[24rem] book-item" data-category="programming" data-title="grokking algorithms" data-author="aditya bhargava">
+                        <div onclick="openBookDetails('Grokking Algorithms', 'Aditya Bhargava', 'Rs 143', 'An illustrated guide explaining DSA design concepts visually.', 'img/Grokking Algorithms.jpg')" class="w-full h-48 rounded-xl overflow-hidden relative mb-5 border border-orange-50 shadow flex items-center justify-center bg-orange-50/20">
+                            <img src="img/Grokking Algorithms.jpg" class="h-44 object-contain" alt="Grokking Algorithms"/>
+                        </div>
+                        <h3 class="font-extrabold text-dark-navy leading-snug mb-1 truncate">Grokking Algorithms</h3>
+                        <p class="text-sm text-slate-500 mb-4 truncate">Aditya Bhargava</p>
+                        <div class="mt-auto flex justify-between items-center">
+                            <span class="text-primary-orange font-bold text-lg">Rs 143</span>
+                            <button onclick="addToCartMock('Grokking Algorithms')" class="btn-orange-grad px-4 py-2 text-white text-xs font-bold rounded-lg">Add to Cart</button>
+                        </div>
+                    </div>
+                    <!-- Designing Data-Intensive Applications -->
+                    <div class="book-card-3d rounded-2xl p-5 cursor-pointer flex flex-col h-[24rem] book-item" data-category="programming" data-title="designing data-intensive applications" data-author="martin kleppmann">
+                        <div onclick="openBookDetails('Designing Data-Intensive Applications', 'Martin Kleppmann', 'Rs 149', 'Deep dive on scalable data storage schemas and architecture.', 'img/Designing Data2dIntensive Applications.jpg')" class="w-full h-48 rounded-xl overflow-hidden relative mb-5 border border-orange-50 shadow flex items-center justify-center bg-orange-50/20">
+                            <img src="img/Designing Data2dIntensive Applications.jpg" class="h-44 object-contain" alt="Designing Data-Intensive Applications"/>
+                        </div>
+                        <h3 class="font-extrabold text-dark-navy leading-snug mb-1 truncate">Data-Intensive Apps</h3>
+                        <p class="text-sm text-slate-500 mb-4 truncate">Martin Kleppmann</p>
+                        <div class="mt-auto flex justify-between items-center">
+                            <span class="text-primary-orange font-bold text-lg">Rs 149</span>
+                            <button onclick="addToCartMock('Designing Data-Intensive Applications')" class="btn-orange-grad px-4 py-2 text-white text-xs font-bold rounded-lg">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Psychology Shelf -->
+            <div class="shelf-group" data-group-category="psychology">
+                <div class="text-center mb-8">
+                    <h2 class="text-3xl font-extrabold text-dark-navy mb-2">Psychology & Mind</h2>
+                    <p class="text-slate-500 italic">“The mind is a garden where thoughts bloom, and understanding is the sunlight that makes them grow.”</p>
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+                    <!-- Thinking Fast and Slow -->
+                    <div class="book-card-3d rounded-2xl p-5 cursor-pointer flex flex-col h-[24rem] book-item" data-category="psychology" data-title="thinking, fast and slow" data-author="daniel kahneman">
+                        <div onclick="openBookDetails('Thinking, Fast and Slow', 'Daniel Kahneman', 'Rs 99', 'An exploration of the two systems driving logical and emotional thought.', 'img/Thinking, Fast and Slow.jpg')" class="w-full h-48 rounded-xl overflow-hidden relative mb-5 border border-orange-50 shadow flex items-center justify-center bg-orange-50/20">
+                            <img src="img/Thinking, Fast and Slow.jpg" class="h-44 object-contain" alt="Thinking, Fast and Slow"/>
+                        </div>
+                        <h3 class="font-extrabold text-dark-navy leading-snug mb-1 truncate">Thinking, Fast and Slow</h3>
+                        <p class="text-sm text-slate-500 mb-4 truncate">Daniel Kahneman</p>
+                        <div class="mt-auto flex justify-between items-center">
+                            <span class="text-primary-orange font-bold text-lg">Rs 99</span>
+                            <button onclick="addToCartMock('Thinking, Fast and Slow')" class="btn-orange-grad px-4 py-2 text-white text-xs font-bold rounded-lg">Add to Cart</button>
+                        </div>
+                    </div>
+                    <!-- Atomic Habits -->
+                    <div class="book-card-3d rounded-2xl p-5 cursor-pointer flex flex-col h-[24rem] book-item" data-category="psychology" data-title="atomic habits" data-author="james clear">
+                        <div onclick="openBookDetails('Atomic Habits', 'James Clear', 'Rs 89', 'Practical framework for breaking bad habits and forming good ones.', 'img/Atomic Habits.jpg')" class="w-full h-48 rounded-xl overflow-hidden relative mb-5 border border-orange-50 shadow flex items-center justify-center bg-orange-50/20">
+                            <img src="img/Atomic Habits.jpg" class="h-44 object-contain" alt="Atomic Habits"/>
+                        </div>
+                        <h3 class="font-extrabold text-dark-navy leading-snug mb-1 truncate">Atomic Habits</h3>
+                        <p class="text-sm text-slate-500 mb-4 truncate">James Clear</p>
+                        <div class="mt-auto flex justify-between items-center">
+                            <span class="text-primary-orange font-bold text-lg">Rs 89</span>
+                            <button onclick="addToCartMock('Atomic Habits')" class="btn-orange-grad px-4 py-2 text-white text-xs font-bold rounded-lg">Add to Cart</button>
+                        </div>
+                    </div>
+                    <!-- Predictably Irrational -->
+                    <div class="book-card-3d rounded-2xl p-5 cursor-pointer flex flex-col h-[24rem] book-item" data-category="psychology" data-title="predictably irrational" data-author="dan ariely">
+                        <div onclick="openBookDetails('Predictably Irrational', 'Dan Ariely', 'Rs 143', 'Challenges the assumption that human beings behave logically.', 'img/Predictably Irrational.jpg')" class="w-full h-48 rounded-xl overflow-hidden relative mb-5 border border-orange-50 shadow flex items-center justify-center bg-orange-50/20">
+                            <img src="img/Predictably Irrational.jpg" class="h-44 object-contain" alt="Predictably Irrational"/>
+                        </div>
+                        <h3 class="font-extrabold text-dark-navy leading-snug mb-1 truncate">Predictably Irrational</h3>
+                        <p class="text-sm text-slate-500 mb-4 truncate">Dan Ariely</p>
+                        <div class="mt-auto flex justify-between items-center">
+                            <span class="text-primary-orange font-bold text-lg">Rs 143</span>
+                            <button onclick="addToCartMock('Predictably Irrational')" class="btn-orange-grad px-4 py-2 text-white text-xs font-bold rounded-lg">Add to Cart</button>
+                        </div>
+                    </div>
+                    <!-- The Power of Habit -->
+                    <div class="book-card-3d rounded-2xl p-5 cursor-pointer flex flex-col h-[24rem] book-item" data-category="psychology" data-title="the power of habit" data-author="charles duhigg">
+                        <div onclick="openBookDetails('The Power of Habit', 'Charles Duhigg', 'Rs 199', 'How habits are formed, and how we can reprogram our daily loops.', 'img/The Power of Habit.jpg')" class="w-full h-48 rounded-xl overflow-hidden relative mb-5 border border-orange-50 shadow flex items-center justify-center bg-orange-50/20">
+                            <img src="img/The Power of Habit.jpg" class="h-44 object-contain" alt="The Power of Habit"/>
+                        </div>
+                        <h3 class="font-extrabold text-dark-navy leading-snug mb-1 truncate">The Power of Habit</h3>
+                        <p class="text-sm text-slate-500 mb-4 truncate">Charles Duhigg</p>
+                        <div class="mt-auto flex justify-between items-center">
+                            <span class="text-primary-orange font-bold text-lg">Rs 199</span>
+                            <button onclick="addToCartMock('The Power of Habit')" class="btn-orange-grad px-4 py-2 text-white text-xs font-bold rounded-lg">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Self-Improvement Shelf -->
+            <div class="shelf-group" data-group-category="self-improvement">
+                <div class="text-center mb-8">
+                    <h2 class="text-3xl font-extrabold text-dark-navy mb-2">Self-Improvement</h2>
+                    <p class="text-slate-500 italic">“Growth begins at the end of your comfort zone, where transformation meets possibility.”</p>
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+                    <!-- Ikigai -->
+                    <div class="book-card-3d rounded-2xl p-5 cursor-pointer flex flex-col h-[24rem] book-item" data-category="self-improvement" data-title="ikigai" data-author="hector garcia francesc miralles">
+                        <div onclick="openBookDetails('Ikigai', 'Hector Garcia & Francesc Miralles', 'Rs 299', 'Finding purpose and longevity principles from Okinawan routines.', 'img/Ikigai.jpg')" class="w-full h-48 rounded-xl overflow-hidden relative mb-5 border border-orange-50 shadow flex items-center justify-center bg-orange-50/20">
+                            <img src="img/Ikigai.jpg" class="h-44 object-contain" alt="Ikigai"/>
+                        </div>
+                        <h3 class="font-extrabold text-dark-navy leading-snug mb-1 truncate">Ikigai</h3>
+                        <p class="text-sm text-slate-500 mb-4 truncate">Hector Garcia & Francesc Miralles</p>
+                        <div class="mt-auto flex justify-between items-center">
+                            <span class="text-primary-orange font-bold text-lg">Rs 299</span>
+                            <button onclick="addToCartMock('Ikigai')" class="btn-orange-grad px-4 py-2 text-white text-xs font-bold rounded-lg">Add to Cart</button>
+                        </div>
+                    </div>
+                    <!-- The Subtle Art of Not Giving a F* -->
+                    <div class="book-card-3d rounded-2xl p-5 cursor-pointer flex flex-col h-[24rem] book-item" data-category="self-improvement" data-title="the subtle art of not giving a f" data-author="mark manson">
+                        <div onclick="openBookDetails('The Subtle Art of Not Giving a F*', 'Mark Manson', 'Rs 199', 'A realistic, direct self-help guide addressing human failures and acceptance.', 'img/The Subtle Art of Not Giving a F book.jpg')" class="w-full h-48 rounded-xl overflow-hidden relative mb-5 border border-orange-50 shadow flex items-center justify-center bg-orange-50/20">
+                            <img src="img/The Subtle Art of Not Giving a F book.jpg" class="h-44 object-contain" alt="The Subtle Art of Not Giving a F*"/>
+                        </div>
+                        <h3 class="font-extrabold text-dark-navy leading-snug mb-1 truncate">The Subtle Art of Not Giving a F*</h3>
+                        <p class="text-sm text-slate-500 mb-4 truncate">Mark Manson</p>
+                        <div class="mt-auto flex justify-between items-center">
+                            <span class="text-primary-orange font-bold text-lg">Rs 199</span>
+                            <button onclick="addToCartMock('The Subtle Art of Not Giving a F*')" class="btn-orange-grad px-4 py-2 text-white text-xs font-bold rounded-lg">Add to Cart</button>
+                        </div>
+                    </div>
+                    <!-- You Can Win -->
+                    <div class="book-card-3d rounded-2xl p-5 cursor-pointer flex flex-col h-[24rem] book-item" data-category="self-improvement" data-title="you can win" data-author="shiv khera">
+                        <div onclick="openBookDetails('You Can Win', 'Shiv Khera', 'Rs 79', 'Motivational classic focused on positive attitudes and personal growth.', 'img/You Can Win.jpg')" class="w-full h-48 rounded-xl overflow-hidden relative mb-5 border border-orange-50 shadow flex items-center justify-center bg-orange-50/20">
+                            <img src="img/You Can Win.jpg" class="h-44 object-contain" alt="You Can Win"/>
+                        </div>
+                        <h3 class="font-extrabold text-dark-navy leading-snug mb-1 truncate">You Can Win</h3>
+                        <p class="text-sm text-slate-500 mb-4 truncate">Shiv Khera</p>
+                        <div class="mt-auto flex justify-between items-center">
+                            <span class="text-primary-orange font-bold text-lg">Rs 79</span>
+                            <button onclick="addToCartMock('You Can Win')" class="btn-orange-grad px-4 py-2 text-white text-xs font-bold rounded-lg">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- What's Trending Now Section -->
+        <section class="border-t border-orange-100 pt-12">
+            <h2 class="text-3xl font-extrabold text-dark-navy text-center mb-10">What's Trending Now !!</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Trending -->
+                <div class="trending-card rounded-2xl p-6 flex flex-col gap-4">
+                    <h3 class="text-xl font-bold text-primary-orange border-b border-orange-100 pb-2">Trending</h3>
+                    <ul class="flex flex-col gap-3 font-semibold text-slate-700">
+                        <li>1. Clean Code</li>
+                        <li>2. Atomic Habits</li>
+                        <li>3. Thinking, Fast and Slow</li>
+                    </ul>
+                    <button onclick="scrollToShelves()" class="text-primary-orange hover:underline text-sm font-bold mt-auto self-start">See more</button>
+                </div>
+                <!-- Editor's Pick -->
+                <div class="trending-card rounded-2xl p-6 flex flex-col gap-4">
+                    <h3 class="text-xl font-bold text-primary-orange border-b border-orange-100 pb-2">Editor's Pick</h3>
+                    <ul class="flex flex-col gap-3 font-semibold text-slate-700">
+                        <li>1. The Pragmatic Programmer</li>
+                        <li>2. Grokking Algorithms</li>
+                        <li>3. The Power of Habit</li>
+                    </ul>
+                    <button onclick="scrollToShelves()" class="text-primary-orange hover:underline text-sm font-bold mt-auto self-start">See more</button>
+                </div>
+                <!-- Light and easy to read -->
+                <div class="trending-card rounded-2xl p-6 flex flex-col gap-4">
+                    <h3 class="text-xl font-bold text-primary-orange border-b border-orange-100 pb-2">Light and easy</h3>
+                    <ul class="flex flex-col gap-3 font-semibold text-slate-700">
+                        <li>1. Make Your Bed</li>
+                        <li>2. You Can Win</li>
+                        <li>3. Predictably Irrational</li>
+                    </ul>
+                    <button onclick="scrollToShelves()" class="text-primary-orange hover:underline text-sm font-bold mt-auto self-start">See more</button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Overlay Detail Modal -->
+    <div id="details-modal" class="fixed inset-0 bg-slate-900/40 backdrop-blur-sm flex items-center justify-center z-50 hidden">
+        <div class="bg-white max-w-2xl w-full p-8 rounded-2xl border border-orange-100 relative flex flex-col md:flex-row gap-6 mx-4 shadow-2xl">
+            <button onclick="closeBookDetails()" class="absolute top-4 right-4 text-slate-400 hover:text-dark-navy">
+                <span class="material-symbols-outlined">close</span>
+            </button>
+            <div class="w-full md:w-1/3 flex items-center justify-center bg-orange-50/50 rounded-xl p-4 border border-orange-100">
+                <img id="modal-cover" class="h-48 object-contain" src="" alt="Book Cover"/>
+            </div>
+            <div class="w-full md:w-2/3 flex flex-col">
+                <h3 class="text-2xl font-extrabold text-dark-navy mb-1" id="modal-title">Book Title</h3>
+                <p class="text-primary-orange font-bold text-sm mb-4" id="modal-author">Author Name</p>
+                <p class="text-slate-600 text-sm leading-relaxed mb-6" id="modal-description">Detailed description.</p>
+                <div class="mt-auto flex justify-between items-center">
+                    <span class="text-dark-navy font-bold text-xl" id="modal-price">Rs 00</span>
+                    <button id="modal-action-btn" onclick="" class="btn-orange-grad px-6 py-3 text-white font-bold rounded-xl shadow-lg">Add to Cart</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-dark-navy text-slate-400 mt-auto">
+        <div class="max-w-7xl mx-auto px-6 py-12 grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="flex flex-col gap-4">
+                <h4 class="text-white font-bold text-lg">About Us</h4>
+                <p class="text-sm leading-relaxed">BookStore is your ultimate destination for quality books at affordable prices. Experience the next level of intellectual reading.</p>
+            </div>
+            <div class="flex flex-col gap-4">
+                <h4 class="text-white font-bold text-lg">Quick Links</h4>
+                <ul class="flex flex-col gap-2 text-sm">
+                    <li><a href="index.html" class="hover:text-white transition-colors">Home</a></li>
+                    <li><a href="chatbot.html" class="hover:text-white transition-colors">AI Assistant</a></li>
+                    <li><a href="publishing.html" class="hover:text-white transition-colors">Writer Portal</a></li>
+                    <li><a href="marketplace.html" class="hover:text-white transition-colors">Marketplace</a></li>
+                </ul>
+            </div>
+            <div class="flex flex-col gap-4">
+                <h4 class="text-white font-bold text-lg">Contact</h4>
+                <p class="text-sm">Email: pulkitkumara.k@gmail.com</p>
+                <p class="text-sm">Phone: (+91)87914 90970</p>
+            </div>
+        </div>
+        <div class="border-t border-slate-800 text-center py-6 text-xs">
+            <p>&copy; 2026 BookStore. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        let activeCategory = 'all';
+
+        function scrollToShelves() {
+            document.getElementById('shelves-section').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function selectCategory(category) {
+            activeCategory = category;
+            
+            // Toggle active chip classes
+            const chips = document.querySelectorAll('.category-chip');
+            chips.forEach(chip => {
+                chip.classList.remove('active');
+                chip.classList.add('text-slate-600');
+            });
+            
+            const selectedChip = document.getElementById('chip-' + category);
+            selectedChip.classList.add('active');
+            selectedChip.classList.remove('text-slate-600');
+
+            filterBooks();
+        }
+
+        function filterBooks() {
+            const query = document.getElementById('search-input').value.toLowerCase().trim();
+            const books = document.querySelectorAll('.book-item');
+            const shelves = document.querySelectorAll('.shelf-group');
+
+            books.forEach(book => {
+                const category = book.dataset.category;
+                const title = book.dataset.title;
+                const author = book.dataset.author;
+
+                const matchesCategory = (activeCategory === 'all' || category === activeCategory);
+                const matchesQuery = (!query || title.includes(query) || author.includes(query));
+
+                if (matchesCategory && matchesQuery) {
+                    book.style.display = 'flex';
+                } else {
+                    book.style.display = 'none';
+                }
+            });
+
+            // Hide/Show entire shelves depending on if any child card is visible
+            shelves.forEach(shelf => {
+                const shelfCategory = shelf.dataset.groupCategory;
+                const visibleBooks = shelf.querySelectorAll('.book-item[style="display: flex;"]');
+                const totalBooksInShelf = shelf.querySelectorAll('.book-item');
+                
+                // If filtering by categories, hide other shelves entirely
+                if (activeCategory !== 'all' && shelfCategory !== activeCategory) {
+                    shelf.style.display = 'none';
+                } else {
+                    shelf.style.display = 'block';
+                }
+            });
+        }
+
+        function openBookDetails(title, author, price, description, coverSrc) {
+            document.getElementById('modal-title').textContent = title;
+            document.getElementById('modal-author').textContent = author;
+            document.getElementById('modal-price').textContent = price;
+            document.getElementById('modal-description').textContent = description;
+            document.getElementById('modal-cover').src = coverSrc;
+
+            const btn = document.getElementById('modal-action-btn');
+            btn.onclick = () => {
+                addToCartMock(title);
+                closeBookDetails();
+            };
+
+            document.getElementById('details-modal').classList.remove('hidden');
+        }
+
+        function closeBookDetails() {
+            document.getElementById('details-modal').classList.add('hidden');
+        }
+
+        function addToCartMock(title) {
+            alert('"' + title + '" has been added to your shopping cart!');
+            window.location.href = 'cart.html';
+        }
+    </script>
+</body>
+</html>

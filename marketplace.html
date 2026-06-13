@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Feedback Marketplace - BookStore</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&amp;display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+    <script id="tailwind-config">
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        "primary-orange": "#ff7e40",
+                        "secondary-orange": "#ffa566",
+                        "light-cream": "#fff7eb",
+                        "dark-navy": "#1e293b",
+                        "custom-teal": "#20cda2"
+                    },
+                    borderRadius: {
+                        "xl": "12px",
+                        "2xl": "16px",
+                        "full": "9999px"
+                    },
+                    fontFamily: {
+                        "display": ["Plus Jakarta Sans", "sans-serif"],
+                        "body": ["Plus Jakarta Sans", "sans-serif"]
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background: linear-gradient(135deg, #fff7eb 0%, #ffffff 100%);
+            background-attachment: fixed;
+            color: #1e293b;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            overflow-x: hidden;
+        }
+
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 126, 64, 0.15);
+            box-shadow: 0 8px 32px 0 rgba(255, 126, 64, 0.04);
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.8);
+            border: 1px solid rgba(255, 126, 64, 0.15);
+            box-shadow: 0 10px 25px rgba(255, 126, 64, 0.04);
+        }
+
+        .glass-card-interactive {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .glass-card-interactive:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 35px rgba(255, 126, 64, 0.1);
+            border-color: rgba(255, 126, 64, 0.3);
+        }
+
+        .btn-orange-grad {
+            background: linear-gradient(135deg, #ff7e40 0%, #ffa566 100%);
+            box-shadow: 0 4px 12px rgba(255, 126, 64, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .btn-orange-grad:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(255, 126, 64, 0.5);
+        }
+    </style>
+</head>
+<body class="antialiased min-h-screen flex flex-col font-body">
+    <!-- Navbar -->
+    <nav class="glass-panel fixed top-0 w-full z-50 flex justify-between items-center px-6 md:px-16 h-20 border-b border-orange-100">
+        <div class="flex items-center gap-4">
+            <a href="index.html" class="logo">
+                <img src="img/college logo.jpg" alt="Dronacharya Logo" class="h-11 object-contain" />
+            </a>
+        </div>
+        <ul class="hidden md:flex items-center gap-8 font-semibold text-dark-navy">
+            <li><a href="index.html" class="hover:text-primary-orange transition-colors">Home</a></li>
+            <li><a href="chatbot.html" class="hover:text-primary-orange transition-colors">AI Assistant</a></li>
+            <li><a href="publishing.html" class="hover:text-primary-orange transition-colors">Publishing</a></li>
+            <li><a href="marketplace.html" class="text-primary-orange">Marketplace</a></li>
+        </ul>
+        <div class="flex items-center gap-4 font-semibold">
+            <a href="cart.html" class="p-2 text-dark-navy hover:text-primary-orange transition-colors relative">
+                <span class="material-symbols-outlined text-2xl">shopping_cart</span>
+            </a>
+            <a href="login.html" class="px-5 py-2 border border-primary-orange text-primary-orange rounded-full hover:bg-primary-orange hover:text-white transition-all">Login</a>
+            <a href="register.html" class="px-5 py-2 bg-primary-orange text-white rounded-full hover:bg-orange-600 transition-all shadow-md">Register</a>
+        </div>
+    </nav>
+    
+    <!-- SideNavBar -->
+    <aside class="glass-panel hidden md:flex flex-col gap-4 p-5 w-64 rounded-2xl border border-orange-100 fixed left-6 top-28 bottom-6 z-40">
+        <div class="flex items-center gap-4 p-2 mb-4 border-b border-orange-50 pb-4">
+            <div class="w-12 h-12 rounded-lg bg-orange-100 flex items-center justify-center flex-shrink-0">
+                <span class="material-symbols-outlined text-primary-orange">psychology</span>
+            </div>
+            <div>
+                <h2 class="font-extrabold text-dark-navy leading-tight">Cerebral Guide</h2>
+                <p class="text-xs text-slate-500">Virtual Assistant</p>
+            </div>
+        </div>
+        <div class="flex flex-col gap-2 flex-1 font-semibold text-slate-600">
+            <a class="flex items-center gap-3 p-3 hover:bg-orange-50 hover:text-primary-orange rounded-xl transition-all" href="index.html">
+                <span class="material-symbols-outlined">book_2</span>
+                Library
+            </a>
+            <a class="flex items-center gap-3 p-3 hover:bg-orange-50 hover:text-primary-orange rounded-xl transition-all" href="publishing.html">
+                <span class="material-symbols-outlined">edit_note</span>
+                Publishing
+            </a>
+            <a class="flex items-center gap-3 p-3 bg-orange-100/50 text-primary-orange rounded-xl transition-all" href="marketplace.html">
+                <span class="material-symbols-outlined">storefront</span>
+                Marketplace
+            </a>
+        </div>
+        <div class="mt-auto pt-4 border-t border-orange-50">
+            <a href="publishing.html" class="btn-orange-grad w-full py-3 rounded-xl text-center text-white text-xs font-bold uppercase tracking-wider block">
+                New Manuscript
+            </a>
+        </div>
+    </aside>
+    
+    <!-- Main Content Canvas -->
+    <main class="md:ml-[290px] pt-24 pb-16 px-6 md:px-12 min-h-screen max-w-7xl mx-auto w-full flex flex-col gap-10">
+        <!-- Header & Wallet Section -->
+        <div class="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 border-b border-orange-50 pb-6">
+            <div>
+                <h1 class="text-4xl font-extrabold text-dark-navy mb-2">Feedback Marketplace</h1>
+                <p class="text-slate-500 max-w-2xl leading-relaxed">Earn bookstore points (Aeth tokens) by providing detailed review critiques for writer uploads.</p>
+            </div>
+            <div class="glass-card rounded-xl p-4 flex items-center gap-4 border border-orange-200 bg-orange-50/30">
+                <div class="w-12 h-12 rounded-full bg-orange-100 flex items-center justify-center">
+                    <span class="material-symbols-outlined text-primary-orange">toll</span>
+                </div>
+                <div>
+                    <p class="text-xs font-bold text-slate-500 font-label-caps uppercase tracking-wider">Nexus Wallet</p>
+                    <p class="text-2xl font-extrabold text-primary-orange" id="wallet-balance">1,420 Aeth</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Bento Grid Layout -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+            <!-- Left Column: Bounty Board -->
+            <div class="lg:col-span-8 flex flex-col gap-6">
+                <h2 class="text-2xl font-bold text-dark-navy flex items-center gap-2 mb-2">
+                    <span class="material-symbols-outlined text-primary-orange">target</span>
+                    Active Bounties
+                </h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Bounty Card 1 -->
+                    <div class="glass-card glass-card-interactive rounded-xl p-6 flex flex-col group relative overflow-hidden">
+                        <div class="absolute top-0 right-0 p-4">
+                            <div class="bg-white/90 border border-orange-200 rounded-full px-3 py-1 flex items-center gap-1">
+                                <span class="material-symbols-outlined text-primary-orange text-sm">toll</span>
+                                <span class="text-xs text-primary-orange font-bold font-label-caps uppercase tracking-wider">+500</span>
+                            </div>
+                        </div>
+                        <div class="w-full h-36 rounded-lg bg-orange-50/50 mb-4 overflow-hidden relative border border-orange-100 flex items-center justify-center">
+                            <img src="img/Clean code.png" class="h-28 object-contain" alt="Clean Code"/>
+                        </div>
+                        <h3 class="text-lg font-bold text-dark-navy mb-1 line-clamp-1">Clean Code Review</h3>
+                        <p class="text-sm text-slate-500 mb-4 line-clamp-2">Seeking detailed critique on clean code practices in modern frameworks. Do you think the examples stand up to real world scenarios?</p>
+                        <div class="mt-auto flex items-center justify-between pt-4 border-t border-orange-50">
+                            <div class="flex gap-1">
+                                <span class="px-2 py-0.5 rounded bg-orange-50 text-primary-orange text-[10px] border border-orange-100 font-bold uppercase">Refactoring</span>
+                            </div>
+                            <button onclick="openReviewModal('Clean Code Review', 500)" class="text-primary-orange hover:underline text-sm font-bold flex items-center gap-1">
+                                Claim <span class="material-symbols-outlined text-sm">arrow_forward</span>
+                            </button>
+                        </div>
+                    </div>
+                    <!-- Bounty Card 2 -->
+                    <div class="glass-card glass-card-interactive rounded-xl p-6 flex flex-col group relative overflow-hidden">
+                        <div class="absolute top-0 right-0 p-4">
+                            <div class="bg-white/90 border border-orange-200 rounded-full px-3 py-1 flex items-center gap-1">
+                                <span class="material-symbols-outlined text-primary-orange text-sm">toll</span>
+                                <span class="text-xs text-primary-orange font-bold font-label-caps uppercase tracking-wider">+250</span>
+                            </div>
+                        </div>
+                        <div class="w-full h-36 rounded-lg bg-orange-50/50 mb-4 overflow-hidden relative border border-orange-100 flex items-center justify-center">
+                            <img src="img/Atomic Habits.jpg" class="h-28 object-contain" alt="Atomic Habits"/>
+                        </div>
+                        <h3 class="text-lg font-bold text-dark-navy mb-1 line-clamp-1">Habit Loop Analysis</h3>
+                        <p class="text-sm text-slate-500 mb-4 line-clamp-2">Need a summary of personal experiences trying out habit loops. Did they work or fail in your daily routine?</p>
+                        <div class="mt-auto flex items-center justify-between pt-4 border-t border-orange-50">
+                            <div class="flex gap-1">
+                                <span class="px-2 py-0.5 rounded bg-orange-50 text-primary-orange text-[10px] border border-orange-100 font-bold uppercase">Psychology</span>
+                            </div>
+                            <button onclick="openReviewModal('Habit Loop Analysis', 250)" class="text-primary-orange hover:underline text-sm font-bold flex items-center gap-1">
+                                Claim <span class="material-symbols-outlined text-sm">arrow_forward</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Right Column: Review Analytics -->
+            <div class="lg:col-span-4 flex flex-col gap-6">
+                <h2 class="text-2xl font-bold text-dark-navy flex items-center gap-2 mb-2">
+                    <span class="material-symbols-outlined text-primary-orange">monitoring</span>
+                    My Analytics
+                </h2>
+                <!-- Sentiment Card -->
+                <div class="glass-card rounded-xl p-6 flex flex-col relative overflow-hidden">
+                    <h3 class="text-slate-500 font-bold text-sm mb-4">Sentiment Trend</h3>
+                    <div class="flex items-end gap-3 mb-4">
+                        <span class="text-4xl font-extrabold text-dark-navy">8.4</span>
+                        <span class="text-sm text-custom-teal flex items-center pb-1 font-bold">
+                            <span class="material-symbols-outlined text-sm">trending_up</span>
+                            +1.2
+                        </span>
+                    </div>
+                    <!-- Abstract Chart -->
+                    <div class="h-20 w-full flex items-end gap-2 mb-2">
+                        <div class="w-1/6 bg-orange-100 rounded-t-sm h-[30%]"></div>
+                        <div class="w-1/6 bg-orange-100 rounded-t-sm h-[45%]"></div>
+                        <div class="w-1/6 bg-orange-200 rounded-t-sm h-[60%] border-t border-primary-orange"></div>
+                        <div class="w-1/6 bg-orange-100 rounded-t-sm h-[50%]"></div>
+                        <div class="w-1/6 bg-orange-300 rounded-t-sm h-[80%] border-t border-primary-orange"></div>
+                        <div class="w-1/6 bg-primary-orange rounded-t-sm h-[100%] border-t border-orange-600 shadow-lg"></div>
+                    </div>
+                </div>
+                <!-- Extracted Themes -->
+                <div class="glass-card rounded-xl p-6 flex flex-col gap-4">
+                    <h3 class="text-slate-500 font-bold text-sm border-b border-orange-50 pb-2">AI Extracted Themes</h3>
+                    <div class="flex flex-col gap-3 text-xs font-bold text-slate-700">
+                        <div class="flex justify-between mb-1">
+                            <span>Worldbuilding</span>
+                            <span class="text-primary-orange">92%</span>
+                        </div>
+                        <div class="w-full bg-orange-100 h-1.5 rounded-full overflow-hidden">
+                            <div class="bg-primary-orange h-full" style="width: 92%"></div>
+                        </div>
+                        
+                        <div class="flex justify-between mb-1">
+                            <span>Pacing</span>
+                            <span class="text-primary-orange">68%</span>
+                        </div>
+                        <div class="w-full bg-orange-100 h-1.5 rounded-full overflow-hidden">
+                            <div class="bg-primary-orange h-full" style="width: 68%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Modal for Review -->
+    <div id="review-modal" class="fixed inset-0 bg-slate-900/40 backdrop-blur-sm flex items-center justify-center z-50 hidden">
+        <div class="bg-white max-w-lg w-full p-8 rounded-2xl border border-orange-100 relative shadow-2xl mx-4">
+            <h3 class="text-2xl font-extrabold text-dark-navy mb-2" id="modal-title">Write Review</h3>
+            <p class="text-sm text-slate-500 mb-6">Enter detailed, qualitative feedback to claim your Aeth tokens.</p>
+            <form onsubmit="submitReview(event)">
+                <textarea id="review-textarea" rows="5" required class="w-full rounded-xl border border-orange-100 focus:outline-none focus:border-primary-orange focus:ring-1 focus:ring-primary-orange/50 px-4 py-3 text-sm text-dark-navy mb-6 placeholder:text-slate-400" placeholder="Minimum 3 paragraphs of rigorous critique..."></textarea>
+                <div class="flex justify-end gap-3">
+                    <button type="button" onclick="closeReviewModal()" class="px-5 py-2.5 border border-slate-200 rounded-xl text-xs font-bold text-slate-600 hover:bg-slate-50">Cancel</button>
+                    <button type="submit" class="btn-orange-grad px-5 py-2.5 rounded-xl text-xs font-bold text-white">Submit Review</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        let currentBountyTitle = '';
+        let currentBountyAmount = 0;
+        let walletBalance = 1420;
+
+        function openReviewModal(title, reward) {
+            currentBountyTitle = title;
+            currentBountyAmount = reward;
+            document.getElementById('modal-title').textContent = 'Critique: ' + title;
+            document.getElementById('review-modal').classList.remove('hidden');
+        }
+
+        function closeReviewModal() {
+            document.getElementById('review-modal').classList.add('hidden');
+            document.getElementById('review-textarea').value = '';
+        }
+
+        function submitReview(event) {
+            event.preventDefault();
+            const text = document.getElementById('review-textarea').value.trim();
+            if (text.length < 50) {
+                alert('Review is too short. Please provide rigorous, high-quality feedback to claim Aeth tokens.');
+                return;
+            }
+
+            alert('Review submitted successfully!\nAI is reviewing quality...');
+
+            setTimeout(() => {
+                walletBalance += currentBountyAmount;
+                document.getElementById('wallet-balance').textContent = walletBalance + ' Aeth';
+                alert('Success!\nAI verified review quality. You have earned +' + currentBountyAmount + ' Aeth.\nNew Wallet Balance: ' + walletBalance + ' Aeth');
+                closeReviewModal();
+            }, 1000);
+        }
+    </script>
+</body>
+</html>

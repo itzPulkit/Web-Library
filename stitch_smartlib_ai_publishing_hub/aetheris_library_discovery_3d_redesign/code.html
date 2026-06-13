@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Immersive Discovery - Aetheris Library</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-error-container": "#ffdad6",
+                        "surface-container-low": "#131b2e",
+                        "surface-dim": "#0b1326",
+                        "error-container": "#93000a",
+                        "primary-container": "#8083ff",
+                        "on-tertiary": "#2d3133",
+                        "tertiary": "#c4c7c9",
+                        "on-secondary": "#003731",
+                        "secondary-fixed": "#62fae3",
+                        "on-surface": "#dae2fd",
+                        "on-tertiary-container": "#272a2c",
+                        "tertiary-fixed-dim": "#c4c7c9",
+                        "on-primary-container": "#0d0096",
+                        "outline": "#908fa0",
+                        "on-primary": "#1000a9",
+                        "on-secondary-fixed-variant": "#005047",
+                        "surface-container": "#171f33",
+                        "on-secondary-container": "#004d44",
+                        "surface-variant": "#2d3449",
+                        "on-error": "#690005",
+                        "secondary-container": "#03c6b2",
+                        "on-primary-fixed-variant": "#2f2ebe",
+                        "inverse-on-surface": "#283044",
+                        "on-background": "#dae2fd",
+                        "inverse-surface": "#dae2fd",
+                        "on-primary-fixed": "#07006c",
+                        "surface-container-lowest": "#060e20",
+                        "primary": "#c0c1ff",
+                        "surface-tint": "#c0c1ff",
+                        "secondary": "#44e2cd",
+                        "surface-container-high": "#222a3d",
+                        "surface-container-highest": "#2d3449",
+                        "surface-bright": "#31394d",
+                        "outline-variant": "#464554",
+                        "on-surface-variant": "#c7c4d7",
+                        "surface": "#0b1326",
+                        "tertiary-container": "#8e9193",
+                        "error": "#ffb4ab",
+                        "tertiary-fixed": "#e0e3e5",
+                        "on-tertiary-fixed": "#191c1e",
+                        "primary-fixed-dim": "#c0c1ff",
+                        "on-secondary-fixed": "#00201c",
+                        "on-tertiary-fixed-variant": "#444749",
+                        "primary-fixed": "#e1e0ff",
+                        "inverse-primary": "#494bd6",
+                        "background": "#0b1326",
+                        "secondary-fixed-dim": "#3cddc7"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "stack-md": "24px",
+                        "container-max": "1440px",
+                        "margin-mobile": "20px",
+                        "unit": "8px",
+                        "margin-desktop": "64px",
+                        "stack-lg": "48px",
+                        "gutter": "24px",
+                        "stack-sm": "12px"
+                    },
+                    "fontFamily": {
+                        "display-lg-mobile": ["Plus Jakarta Sans"],
+                        "display-lg": ["Plus Jakarta Sans"],
+                        "body-lg": ["Plus Jakarta Sans"],
+                        "body-md": ["Plus Jakarta Sans"],
+                        "headline-md": ["Plus Jakarta Sans"],
+                        "label-caps": ["Plus Jakarta Sans"]
+                    },
+                    "fontSize": {
+                        "display-lg-mobile": ["32px", { "lineHeight": "1.2", "fontWeight": "800" }],
+                        "display-lg": ["48px", { "lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "800" }],
+                        "body-lg": ["18px", { "lineHeight": "1.6", "letterSpacing": "0.01em", "fontWeight": "400" }],
+                        "body-md": ["16px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                        "headline-md": ["24px", { "lineHeight": "1.3", "letterSpacing": "-0.01em", "fontWeight": "700" }],
+                        "label-caps": ["12px", { "lineHeight": "1.0", "letterSpacing": "0.1em", "fontWeight": "600" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body {
+            background-color: theme('colors.background');
+            color: theme('colors.on-background');
+            overflow-x: hidden;
+        }
+
+        .void-bg {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: radial-gradient(circle at 10% 10%, rgba(192,193,255,0.1) 0%, transparent 50%),
+                        radial-gradient(circle at 90% 90%, rgba(68,226,205,0.1) 0%, transparent 50%),
+                        radial-gradient(circle at 50% 50%, rgba(11,19,38,1) 0%, rgba(6,14,32,1) 100%);
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .glass-panel {
+            background: rgba(23, 31, 51, 0.3); /* surface-container with high opacity */
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+        }
+
+        .glass-card {
+            background: rgba(45, 52, 73, 0.4); /* surface-variant at 40% */
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            border-left: 1px solid rgba(255, 255, 255, 0.05);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+            transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+            transform-style: preserve-3d;
+        }
+
+        .glass-card:hover {
+            transform: translateZ(20px) translateY(-5px) rotateX(2deg) rotateY(-2deg);
+            backdrop-filter: blur(40px);
+            -webkit-backdrop-filter: blur(40px);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.6), 0 0 30px rgba(192,193,255,0.1);
+            border-color: rgba(255,255,255,0.2);
+        }
+
+        .ai-lume-input {
+            background: rgba(11, 19, 38, 0.4); /* surface-dim */
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255,255,255,0.1);
+            color: theme('colors.on-surface');
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+        }
+
+        .ai-lume-input:focus {
+            outline: none;
+            border-color: rgba(192,193,255,0.5);
+            background: rgba(23, 31, 51, 0.6);
+            box-shadow: 0 10px 40px rgba(68,226,205,0.15), 0 0 20px rgba(192,193,255,0.1) inset;
+        }
+
+        .perspective-container {
+            perspective: 1200px;
+        }
+
+        .book-card-image-wrap {
+            transform: translateZ(30px);
+            transition: transform 0.4s ease;
+        }
+        
+        .glass-card:hover .book-card-image-wrap {
+            transform: translateZ(50px);
+        }
+
+        .book-card-content {
+            transform: translateZ(20px);
+        }
+
+        /* Layout overrides for side nav integration */
+        .main-content-wrapper {
+            margin-left: 0;
+            padding-top: 6rem;
+        }
+
+        @media (min-width: 768px) {
+            .main-content-wrapper {
+                margin-left: calc(16rem + 24px + 24px); /* sidenav width + left-stack + gap */
+            }
+        }
+        
+        .text-glow {
+            text-shadow: 0 0 20px rgba(192,193,255,0.4);
+        }
+    </style>
+</head>
+<body class="antialiased min-h-screen font-body-md">
+<div class="void-bg"></div>
+<!-- TopNavBar (Web & Mobile) -->
+<nav class="glass-panel fixed top-0 w-full z-50 flex justify-between items-center px-margin-mobile md:px-margin-desktop h-20 border-b border-white/5">
+<div class="flex items-center gap-4">
+<span class="font-display-lg-mobile text-display-lg-mobile tracking-tighter text-primary text-glow font-extrabold">Aetheris Library</span>
+</div>
+<!-- Web Navigation Links -->
+<div class="hidden md:flex items-center gap-10">
+<a class="text-primary font-bold border-b-2 border-primary pb-1 font-body-md text-body-md hover:scale-105 active:scale-95 transition-all duration-300 tracking-wide" href="#">Explore</a>
+<a class="text-on-surface-variant font-body-md text-body-md hover:text-secondary-fixed hover:scale-105 active:scale-95 transition-all duration-300 tracking-wide" href="#">Insights</a>
+<a class="text-on-surface-variant font-body-md text-body-md hover:text-secondary-fixed hover:scale-105 active:scale-95 transition-all duration-300 tracking-wide" href="#">Network</a>
+</div>
+<div class="flex items-center gap-6">
+<button class="text-primary hover:text-secondary-fixed transition-all duration-300 hover:scale-110 active:scale-95">
+<span class="material-symbols-outlined drop-shadow-[0_0_8px_rgba(192,193,255,0.5)]" data-icon="notifications">notifications</span>
+</button>
+<button class="text-primary hover:text-secondary-fixed transition-all duration-300 hover:scale-110 active:scale-95">
+<span class="material-symbols-outlined drop-shadow-[0_0_8px_rgba(192,193,255,0.5)]" data-icon="auto_awesome">auto_awesome</span>
+</button>
+<div class="w-10 h-10 rounded-full bg-surface-variant overflow-hidden border border-white/20 hover:scale-105 transition-transform cursor-pointer shadow-[0_0_15px_rgba(192,193,255,0.2)]">
+<img alt="Researcher Profile" class="w-full h-full object-cover" data-alt="A futuristic avatar portrait of a researcher in a sleek, dark tech environment. The lighting is moody with subtle blue and teal neon reflections on their face, indicating they are looking at a holographic interface. High-end sci-fi aesthetic, photorealistic, cinematic lighting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA1tQkWfSWbzA1oOO--VPZJFwSn0s9blKHd7ovLftOQK92HwkOMPxDbJ1QEmyJL40QuBhd37-bs6trf57CxtIs75eyfRhw8jcdAW33T3orVPCcQW63LmnAtGC1RZUHxIAp7W73nY7C7dQy-Am3VCsehtEoL1eTCbhg5VtcnfKwyOY5fKhrFX_Fxk-zpa6fQD3maGWbrA8ltLfNY8GmeZoErNXoPp49J3yYMNG_1L57_rccujWFFfzlLYy1BzhBFRzuux8LPBJ9Xyi5a"/>
+</div>
+</div>
+</nav>
+<!-- SideNavBar (Web Only) -->
+<aside class="glass-panel hidden md:flex fixed left-stack-md top-28 bottom-stack-md w-64 rounded-2xl flex-col gap-stack-sm p-5 z-40">
+<div class="flex items-center gap-4 p-2 mb-6">
+<div class="w-14 h-14 rounded-xl bg-surface-variant overflow-hidden border border-white/20 shadow-[0_0_20px_rgba(68,226,205,0.15)]">
+<img alt="AI Guide" class="w-full h-full object-cover" data-alt="An abstract, glowing geometric AI core representing a digital guide. Luminescent teal and indigo light radiating from a central crystalline structure against a deep dark background. Sleek, modern 3D render style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD7d3m_95GdAl9Ju5QlJ2tikmVUSSQlccs7o4i-S5GIPS0jdXa5vmM1Rfu0S-NZ06wgT0AngCm0dnm3m-i4yX3DTBo98q6vc1kRUgjulkN2n-7zyOQv5ZRwTf8j6uULe38DddPhZ6MlCApJF5ynic81VlQnOvNiGaLS4HT43tk1Ff41zwIX_fbVVi9mv4FOZ-_Cdi5IqQShvx5RAimaFWjJcN1PcGwNQDk_WPnLuRBfcYPjG7RJ9e-TjB8YfS74ourjr0RkkypHtrSg"/>
+</div>
+<div>
+<h2 class="font-headline-md text-[20px] font-bold text-secondary tracking-wide">Cerebral Nexus</h2>
+<p class="font-label-caps text-[10px] text-on-surface-variant tracking-widest mt-1 uppercase">Level 4 Researcher</p>
+</div>
+</div>
+<nav class="flex-1 flex flex-col gap-3">
+<a class="bg-primary/10 border border-primary/20 text-primary rounded-xl p-3 shadow-[0_0_15px_rgba(128,131,255,0.1)] font-body-md font-semibold flex items-center gap-4 hover:translate-x-2 transition-all duration-300 backdrop-blur-md" href="#">
+<span class="material-symbols-outlined text-primary" data-icon="book_2">book_2</span>
+                Library
+            </a>
+<a class="text-on-surface-variant p-3 font-body-md flex items-center gap-4 hover:bg-white/5 hover:text-white rounded-xl hover:translate-x-2 transition-all duration-300" href="#">
+<span class="material-symbols-outlined" data-icon="edit_note">edit_note</span>
+                Publishing
+            </a>
+<a class="text-on-surface-variant p-3 font-body-md flex items-center gap-4 hover:bg-white/5 hover:text-white rounded-xl hover:translate-x-2 transition-all duration-300" href="#">
+<span class="material-symbols-outlined" data-icon="storefront">storefront</span>
+                Marketplace
+            </a>
+</nav>
+<div class="mt-auto flex flex-col gap-3 border-t border-white/5 pt-6">
+<button class="w-full py-3 px-4 bg-gradient-to-r from-primary to-secondary text-surface-container-lowest font-body-md font-bold rounded-xl shadow-[0_4px_15px_rgba(192,193,255,0.3)] hover:shadow-[0_8px_25px_rgba(104,250,227,0.4)] hover:-translate-y-1 transition-all duration-300 tracking-wide">
+                New Manuscript
+            </button>
+<a class="text-on-surface-variant p-3 font-body-md flex items-center gap-4 hover:bg-white/5 hover:text-white rounded-xl hover:translate-x-2 transition-all duration-300" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+                Settings
+            </a>
+<a class="text-on-surface-variant p-3 font-body-md flex items-center gap-4 hover:bg-white/5 hover:text-white rounded-xl hover:translate-x-2 transition-all duration-300" href="#">
+<span class="material-symbols-outlined" data-icon="help_center">help_center</span>
+                Support
+            </a>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="main-content-wrapper min-h-screen px-margin-mobile md:px-margin-desktop pb-stack-lg flex flex-col gap-stack-lg relative z-10">
+<!-- Hero Search Section -->
+<section class="mt-12 relative flex flex-col items-center justify-center text-center py-20 perspective-container">
+<h1 class="font-display-lg text-display-lg text-on-surface mb-10 drop-shadow-[0_0_25px_rgba(192,193,255,0.5)] max-w-4xl tracking-tight" style="transform: translateZ(40px);">Expand Your Cerebral Horizon</h1>
+<div class="w-full max-w-3xl relative group" style="transform: translateZ(20px);">
+<span class="material-symbols-outlined absolute left-6 top-1/2 -translate-y-1/2 text-primary text-3xl z-10 drop-shadow-[0_0_10px_rgba(192,193,255,0.5)]">search</span>
+<input class="w-full py-5 pl-16 pr-8 rounded-2xl ai-lume-input font-body-lg text-body-lg placeholder:text-on-surface-variant/40 relative z-0 tracking-wide" placeholder="Search for concepts, moods, or themes..." type="text"/>
+<div class="absolute inset-0 rounded-2xl bg-gradient-to-r from-primary/20 to-secondary/20 blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-700 -z-10"></div>
+</div>
+</section>
+<!-- 3D Digital Bookshelf -->
+<section class="perspective-container">
+<h2 class="font-headline-md text-headline-md text-secondary mb-10 tracking-wide flex items-center gap-3 drop-shadow-[0_0_15px_rgba(68,226,205,0.3)]">
+<span class="material-symbols-outlined">auto_awesome</span>
+                AI Recommended for You
+            </h2>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+<!-- Book Card 1 -->
+<div class="glass-card rounded-2xl p-5 cursor-pointer group flex flex-col h-[22rem]">
+<div class="w-full h-48 rounded-xl overflow-hidden relative mb-5 book-card-image-wrap border border-white/10 shadow-lg">
+<img alt="Abstract Data Visualization" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" data-alt="A complex, glowing abstract data visualization representing a neural network. Flowing lines of neon blue, indigo, and teal intersecting in a dark 3D void. High-tech, futuristic aesthetic, luminescent nodes." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDL4DDaTWk9GB5kDtZCQSQHNDQC6svJZqIXK84cwG5ZRbuifRP31frJMM6fqPLZDP6sgf2-IELSf8V4yll5N3vNiZH7JyBeNoi-pP6sTctaYNoTgh-MdPNec38-T16dT-inWmx2qROMrOexqs-aIh4qzkUyhse__DX_XKIc4ZOfPa6GWtX-reFHWS4OsxfWWVTZ_qp8hhIKdo473xdcx6ge-DqCYRa98hEJIi7Q62AAReibC8kQlwbe3XQ1sl9JnvUUexHRnQBzuo7A"/>
+<div class="absolute top-3 right-3 bg-surface-dim/80 backdrop-blur-md rounded-full px-3 py-1.5 flex items-center gap-2 border border-white/20 shadow-md">
+<span class="w-2 h-2 rounded-full bg-secondary shadow-[0_0_8px_theme('colors.secondary')] animate-pulse"></span>
+<span class="font-label-caps text-[11px] text-on-surface font-bold tracking-widest">98% MATCH</span>
+</div>
+</div>
+<div class="mt-auto book-card-content">
+<h3 class="font-body-lg text-[20px] text-on-surface font-extrabold leading-tight mb-2 truncate tracking-wide drop-shadow-md">The Architecture of Thought</h3>
+<p class="font-body-md text-primary/80 text-sm truncate tracking-wider uppercase font-semibold">Dr. Elias Vance</p>
+</div>
+</div>
+<!-- Book Card 2 -->
+<div class="glass-card rounded-2xl p-5 cursor-pointer group flex flex-col h-[22rem]">
+<div class="w-full h-48 rounded-xl overflow-hidden relative mb-5 book-card-image-wrap border border-white/10 shadow-lg">
+<img alt="Quantum Computing Concept" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" data-alt="A macro shot of a futuristic quantum computing processor. Metallic surfaces reflecting deep purples and bright cyans. Intricate geometric patterns emitting soft, laser-like light. Cinematic, dark background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBpWNPa2lbhqjoiDXHpQE3ejwWutxqjhGJBEAgp6F0CFe74I_OiB9ICLzaJ5X-iEugNUjYUz4aEXMouUXRvMYZq9fTfod8BqpeMj3LUvWH88nGCUOSV5SG2iGuZoqhf4z8MaPj8suYDEXOsrfwNrdH1SXNcSgZMjXBCzfP-SovfnuR41QHgBjyO4GtdkpZMSywpaEdwSkfEEvLc3InjUha077iXuZApQJaVisIv2q7ZL2yjfs6s4f5V7XSKTmnvJowOqqqsUnZfb_ye"/>
+<div class="absolute top-3 right-3 bg-surface-dim/80 backdrop-blur-md rounded-full px-3 py-1.5 flex items-center gap-2 border border-white/20 shadow-md">
+<span class="w-2 h-2 rounded-full bg-secondary shadow-[0_0_8px_theme('colors.secondary')] animate-pulse"></span>
+<span class="font-label-caps text-[11px] text-on-surface font-bold tracking-widest">95% MATCH</span>
+</div>
+</div>
+<div class="mt-auto book-card-content">
+<h3 class="font-body-lg text-[20px] text-on-surface font-extrabold leading-tight mb-2 truncate tracking-wide drop-shadow-md">Quantum Linguistics</h3>
+<p class="font-body-md text-primary/80 text-sm truncate tracking-wider uppercase font-semibold">Aria Chen</p>
+</div>
+</div>
+<!-- Book Card 3 -->
+<div class="glass-card rounded-2xl p-5 cursor-pointer group flex flex-col h-[22rem]">
+<div class="w-full h-48 rounded-xl overflow-hidden relative mb-5 book-card-image-wrap border border-white/10 shadow-lg">
+<img alt="Circuit Board" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" data-alt="A stylized, glowing circuit board seen from an angle with shallow depth of field. Traces are illuminated with cool blue and vibrant teal light, suggesting data flow. Dark, moody, high-end tech aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDM8rHmdz96Zlg6hvtXcH2_wGZxAmjC82XiHSv4VikfsbeJQW4us0lfdLso2EZXm00LL3U3S4sS5j4kkp1vjigUSLg29iYm1L51VhbdOsBonXpiEKZ-_f5V8afNVMVqaFn3HHpFaE1r9K6mkEIGbrb5wHlKM7FSP1DlzBQSLKQ0M7IyU7ucndmkmO4KHy4EDCMqN-A0IFRIKtLUnYBbkS8FiOUf3NekiNqKlk3R02tAyHHPHmGGJh0y5_rDZvushhNNYyi28Oc_bP6u"/>
+</div>
+<div class="mt-auto book-card-content">
+<h3 class="font-body-lg text-[20px] text-on-surface font-extrabold leading-tight mb-2 truncate tracking-wide drop-shadow-md">Synthetic Sentience</h3>
+<p class="font-body-md text-primary/80 text-sm truncate tracking-wider uppercase font-semibold">Marcus T. Ray</p>
+</div>
+</div>
+</div>
+</section>
+</main>
+</body></html>
